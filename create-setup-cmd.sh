@@ -2,6 +2,10 @@
 
 WORK_DIR=$HOME/script-machines
 
+ENV_DETERMINE_DIR=/usr/local/src
+
+ENV_DETERMINE_FILE_NAME=systemd_nspawn.env
+
 DEPLOY_DIR=/var/lib/machines
 
 PREFIX=vir-
@@ -161,6 +165,14 @@ eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1|nl|\
   while read n h;do
 
     echo "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-$(printf $SUBGRP_DIGIT $[n]) /usr/bin/ln -sf /dev/null /etc/systemd/network/80-container-host0.network"
+
+  done
+
+#環境特定ファイルの作成
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1|nl|\
+  while read n h;do
+
+    echo "cp $WORK_DIR/$ENV_DETERMINE_FILE_NAME $DEPLOY_DIR/$REPLICA_NAME-$(printf  $SUBGRP_DIGIT $[n])$ENV_DETERMINE_DIR/$ENV_DETERMINE_FILE_NAME"
 
   done
 

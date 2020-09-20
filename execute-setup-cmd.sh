@@ -138,6 +138,16 @@ cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /usr/bin/ln -
 wait $!
 cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /usr/bin/ln -sf /dev/null /etc/systemd/network/80-container-host0.network
 wait $!
+cp /home/aine/script-machines/systemd_nspawn.env /var/lib/machines/vir-ubuntu-18-04-001/usr/local/src/systemd_nspawn.env
+wait $!
+cp /home/aine/script-machines/systemd_nspawn.env /var/lib/machines/vir-ubuntu-18-04-002/usr/local/src/systemd_nspawn.env
+wait $!
+cp /home/aine/script-machines/systemd_nspawn.env /var/lib/machines/vir-ubuntu-18-04-003/usr/local/src/systemd_nspawn.env
+wait $!
+cp /home/aine/script-machines/systemd_nspawn.env /var/lib/machines/vir-ubuntu-18-04-004/usr/local/src/systemd_nspawn.env
+wait $!
+cp /home/aine/script-machines/systemd_nspawn.env /var/lib/machines/vir-ubuntu-18-04-005/usr/local/src/systemd_nspawn.env
+wait $!
 cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /bin/systemctl stop systemd-networkd
 wait $!
 cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /bin/systemctl stop systemd-resolved

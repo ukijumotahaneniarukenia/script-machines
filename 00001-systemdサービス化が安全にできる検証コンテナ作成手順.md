@@ -74,19 +74,19 @@ machinectl shell root@vir-ubuntu-18-04-001 /bin/bash -c 'echo "root:root_pwd"|ch
 CMD
 
 ```
-machinectl shell root@vir-ubuntu-18-04-001 /usr/sbin/groupadd -g 1000 vir-aine
+machinectl shell root@vir-ubuntu-18-04-001 /usr/sbin/groupadd -g 1000 aine
 
 
-machinectl shell root@vir-ubuntu-18-04-001 /usr/sbin/useradd -m -g vir-aine -u 1000 vir-aine
+machinectl shell root@vir-ubuntu-18-04-001 /usr/sbin/useradd -m -g aine -u 1000 aine
 
 
-machinectl shell root@vir-ubuntu-18-04-001 /usr/bin/chsh -s /bin/bash vir-aine
+machinectl shell root@vir-ubuntu-18-04-001 /usr/bin/chsh -s /bin/bash aine
 
 
-machinectl shell root@vir-ubuntu-18-04-001 /bin/bash -c 'echo "vir-aine:vir-aine_pwd"|chpasswd';
+machinectl shell root@vir-ubuntu-18-04-001 /bin/bash -c 'echo "aine:aine_pwd"|chpasswd';
 
 
-machinectl shell root@vir-ubuntu-18-04-001 /bin/bash -c 'echo "vir-aine ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers';
+machinectl shell root@vir-ubuntu-18-04-001 /bin/bash -c 'echo "aine ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers';
 ```
 
 
@@ -121,17 +121,17 @@ systemd-nspawn -b -D /var/lib/machines/vir-ubuntu-18-04-001
 
 EXE
 ```
-aine-MS-7B98 login: vir-aine
-Password: vir-aine_pwd
+aine-MS-7B98 login: aine
+Password: aine_pwd
 ```
 
 POST
 
 ```
-vir-aine@aine-MS-7B98:~$ whoami
-vir-aine
-vir-aine@aine-MS-7B98:~$ id
-uid=1000(vir-aine) gid=1000(vir-aine) groups=1000(vir-aine)
+aine@aine-MS-7B98:~$ whoami
+aine
+aine@aine-MS-7B98:~$ id
+uid=1000(aine) gid=1000(aine) groups=1000(aine)
 ```
 
 
@@ -164,17 +164,17 @@ systemd-nspawn -b -D /var/lib/machines/vir-ubuntu-18-04-001
 
 EXE
 ```
-aine-MS-7B98 login: vir-aine
-Password: vir-aine_pwd
+aine-MS-7B98 login: aine
+Password: aine_pwd
 ```
 
 POST
 
 ```
-vir-aine@aine-MS-7B98:~$ whoami
-vir-aine
-vir-aine@aine-MS-7B98:~$ id
-uid=1000(vir-aine) gid=1000(vir-aine) groups=1000(vir-aine)
+aine@aine-MS-7B98:~$ whoami
+aine
+aine@aine-MS-7B98:~$ id
+uid=1000(aine) gid=1000(aine) groups=1000(aine)
 ```
 
 一般ユーザーからrootユーザーにスウィッチできるか確認
@@ -182,11 +182,11 @@ uid=1000(vir-aine) gid=1000(vir-aine) groups=1000(vir-aine)
 CMD
 
 ```
-vir-aine@aine-MS-7B98:~$ su root
+aine@aine-MS-7B98:~$ su root
 Password: 
-root@aine-MS-7B98:/home/vir-aine# whoami
+root@aine-MS-7B98:/home/aine# whoami
 root
-root@aine-MS-7B98:/home/vir-aine# id
+root@aine-MS-7B98:/home/aine# id
 uid=0(root) gid=0(root) groups=0(root)
 ```
 
@@ -200,7 +200,7 @@ root@aine-MS-7B98:/home# ll
 total 12
 drwxr-xr-x  3 root      root      4096 Sep 20 17:45 ./
 drwxr-xr-x 21 106627072 106627072 4096 Aug 15 02:49 ../
-drwxr-xr-x  2 root      root      4096 Sep 20 17:45 vir-aine/
+drwxr-xr-x  2 root      root      4096 Sep 20 17:45 aine/
 ```
 
 
@@ -208,7 +208,7 @@ drwxr-xr-x  2 root      root      4096 Sep 20 17:45 vir-aine/
 CMD
 
 ```
-chown -R vir-aine:vir-aine /home/vir-aine
+chown -R aine:aine /home/aine
 ```
 
 POST
@@ -218,7 +218,7 @@ root@aine-MS-7B98:/home# ll
 total 12
 drwxr-xr-x  3 root      root      4096 Sep 20 17:45 ./
 drwxr-xr-x 21 106627072 106627072 4096 Aug 15 02:49 ../
-drwxr-xr-x  2 vir-aine  vir-aine  4096 Sep 20 17:45 vir-aine/
+drwxr-xr-x  2 aine  aine  4096 Sep 20 17:45 aine/
 ```
 
 sudoコマンドの整備
@@ -249,7 +249,7 @@ POST
 root@aine-MS-7B98:/home# ll /usr/bin/sudo
 -rwsr-xr-x 1 root root 149080 Jan 18  2018 /usr/bin/sudo*
 
-vir-aine@aine-MS-7B98:~$ sudo echo unko
+aine@aine-MS-7B98:~$ sudo echo unko
 unko
 ```
 
@@ -275,9 +275,9 @@ firefox
 EXE
 
 ```
-vir-aine@aine-MS-7B98:~$ export DISPLAY=:0.0
+aine@aine-MS-7B98:~$ export DISPLAY=:0.0
 
-vir-aine@aine-MS-7B98:~$ sudo apt install -y firefox
+aine@aine-MS-7B98:~$ sudo apt install -y firefox
 
-vir-aine@aine-MS-7B98:~$ firefox
+aine@aine-MS-7B98:~$ firefox
 ```
