@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
-WORKDIR=/var/lib/machines
+WORK_DIR=$HOME/script-machines
+
+DEPLOY_DIR=/var/lib/machines
 
 PREFIX=vir-
 
 SUFFIX=-template
 
-DEPLOY_DIR=/etc/systemd/network
+SYSTEM_NETWORK_DIR=/etc/systemd/network
 
 RESOLVE_CONF_FILE_PATH=/etc/systemd/resolved.conf
 
@@ -22,7 +24,7 @@ usage(){
 cat <<EOS
 Usage:
 
-   IN: $0 1 5 ubuntu-18-04 > $WORKDIR/$OUTPUT_FILE_NAME
+   IN: $0 1 5 ubuntu-18-04 > $DEPLOY_DIR/$OUTPUT_FILE_NAME
 
   OUT:
 
@@ -93,28 +95,28 @@ START_HOST_NO=$(printf $SUBGRP_DIGIT $s)
 END_HOST_NO=$(printf $SUBGRP_DIGIT $e)
 
 #ロックファイルの削除
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo "echo $WORKDIR/.#$REPLICA_NAME-@ | xargs rm -rf"
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo "echo $DEPLOY_DIR/.#$REPLICA_NAME-@ | xargs rm -rf"
 
 #仮想コンテナプロセスの停止
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo "cd $WORKDIR && machinectl terminate $REPLICA_NAME-@"
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo "cd $DEPLOY_DIR && machinectl terminate $REPLICA_NAME-@"
 
 #仮想コンテナファイル群の削除
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo rm -rf $WORKDIR/$REPLICA_NAME-@
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo rm -rf $DEPLOY_DIR/$REPLICA_NAME-@
 
 #仮想コンテナファイルの配備
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo cp -a $WORKDIR/$SEED_NAME $WORKDIR/$REPLICA_NAME-@
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo cp -a $DEPLOY_DIR/$SEED_NAME $DEPLOY_DIR/$REPLICA_NAME-@
 
 #仮想コンテナプロセスの開始
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $WORKDIR && machinectl start $REPLICA_NAME-%s\n" $(printf $SUBGRP_DIGIT $n);done
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl start $REPLICA_NAME-%s\n" $(printf $SUBGRP_DIGIT $n);done
 
 #仮想コンテナのrootユーザーのパスワード設定
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $WORKDIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27echo \x22root:root_pwd\x22|chpasswd\x27;\n" $(printf $SUBGRP_DIGIT $[n]);done
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27echo \x22root:root_pwd\x22|chpasswd\x27;\n" $(printf $SUBGRP_DIGIT $[n]);done
 
 #おまじない
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I{} echo "cd $WORKDIR && machinectl shell root@$REPLICA_NAME-{} /usr/bin/ln -sf /dev/null $DEPLOY_DIR/$CONTAINER_HOST0_NETWORK_NAME"
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I{} echo "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-{} /usr/bin/ln -sf /dev/null $SYSTEM_NETWORK_DIR/$CONTAINER_HOST0_NETWORK_NAME"
 
 #DNSの設定
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $WORKDIR && machinectl shell root@$REPLICA_NAME-%s /usr/bin/sed -i \x27/^#DNS=$/s/#DNS=/DNS=$MY_ROUTER_IP/\x27 $RESOLVE_CONF_FILE_PATH\n" $(printf $SUBGRP_DIGIT $[n]);done
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /usr/bin/sed -i \x27/^#DNS=$/s/#DNS=/DNS=$MY_ROUTER_IP/\x27 $RESOLVE_CONF_FILE_PATH\n" $(printf $SUBGRP_DIGIT $[n]);done
 
 CNT=$(eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | wc -l)
 
@@ -138,7 +140,16 @@ for keyword in ${KEYWORDS[@]} ;do
 
     while read n h;do
 
-      echo "cp $WORKDIR/$keyword-$SEGMENT_THIRD_OCTET_IP.$[$SEGMENT_FORTH_OCTET_START_IP+$n] $WORKDIR/$REPLICA_NAME-$(printf  $SUBGRP_DIGIT $[n])$DEPLOY_DIR/$keyword"
+      if [ $keyword == "$CONTAINER_HOST0_NETWORK_NAME" ];then
+
+        echo "cp $WORK_DIR/$keyword $DEPLOY_DIR/$REPLICA_NAME-$(printf  $SUBGRP_DIGIT $[n])$SYSTEM_NETWORK_DIR/$keyword"
+
+      else
+
+        echo "cp $WORK_DIR/$keyword-$SEGMENT_THIRD_OCTET_IP.$[$SEGMENT_FORTH_OCTET_START_IP+$n] $DEPLOY_DIR/$REPLICA_NAME-$(printf  $SUBGRP_DIGIT $[n])$SYSTEM_NETWORK_DIR/$keyword"
+
+      fi
+
 
     done
 
@@ -150,7 +161,7 @@ done
 eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1|nl|\
   while read n h;do
 
-    echo "cd $WORKDIR && machinectl shell root@$REPLICA_NAME-$(printf $SUBGRP_DIGIT $[n]) /usr/bin/ln -sf /dev/null /etc/systemd/network/80-container-host0.network"
+    echo "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-$(printf $SUBGRP_DIGIT $[n]) /usr/bin/ln -sf /dev/null /etc/systemd/network/80-container-host0.network"
 
   done
 
@@ -162,13 +173,13 @@ for action in ${ACTION_LIST[@]} ;do
 
       if [ $action == "status" ];then
 
-        echo "cd $WORKDIR && machinectl shell root@$REPLICA_NAME-$(printf $SUBGRP_DIGIT $[n]) /bin/systemctl --no-pager $action systemd-networkd"
-        echo "cd $WORKDIR && machinectl shell root@$REPLICA_NAME-$(printf $SUBGRP_DIGIT $[n]) /bin/systemctl --no-pager $action systemd-resolved"
+        echo "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-$(printf $SUBGRP_DIGIT $[n]) /bin/systemctl --no-pager $action systemd-networkd"
+        echo "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-$(printf $SUBGRP_DIGIT $[n]) /bin/systemctl --no-pager $action systemd-resolved"
 
       else
 
-        echo "cd $WORKDIR && machinectl shell root@$REPLICA_NAME-$(printf $SUBGRP_DIGIT $[n]) /bin/systemctl $action systemd-networkd"
-        echo "cd $WORKDIR && machinectl shell root@$REPLICA_NAME-$(printf $SUBGRP_DIGIT $[n]) /bin/systemctl $action systemd-resolved"
+        echo "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-$(printf $SUBGRP_DIGIT $[n]) /bin/systemctl $action systemd-networkd"
+        echo "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-$(printf $SUBGRP_DIGIT $[n]) /bin/systemctl $action systemd-resolved"
 
       fi
     done
