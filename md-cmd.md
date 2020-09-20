@@ -172,6 +172,112 @@ $ gitmerge-p4merge-bash vir-ubuntu-18-04-001-step01.tsv vir-ubuntu-18-04-templat
 ```
 
 
+差分のあるファイルないしフォルダ名の一覧を作成
+
+```
+$ diff -W$[$(tput cols)+300] -y vir-ubuntu-18-04-001-step01.tsv vir-ubuntu-18-04-template.tsv | grep -P '\|' | awk -v FS='\t' '$0=$2'
+/home/aine/script-machines/vir-ubuntu-18-04-template/lib/x86_64-linux-gnu
+/home/aine/script-machines/vir-ubuntu-18-04-template/usr/lib/python3.6
+/home/aine/script-machines/vir-ubuntu-18-04-template/usr/lib/python3.6/encodings/__pycache__
+/home/aine/script-machines/vir-ubuntu-18-04-template/usr/lib/x86_64-linux-gnu/gconv
+/home/aine/script-machines/vir-ubuntu-18-04-template/usr/share/bash-completion/completions
+/home/aine/script-machines/vir-ubuntu-18-04-template/usr/share/doc
+/home/aine/script-machines/vir-ubuntu-18-04-template/usr/share/i18n/locales
+```
+
+個別にdiffとる
+
+CMD
+
+```
+$ echo /home/aine/script-machines/vir-ubuntu-18-04-template/lib/x86_64-linux-gnu | xargs -I@ bash -c 'filedump-jq @ >$(echo diff-@ | tr "/" "-").tsv'
+
+$ echo /home/aine/script-machines/vir-ubuntu-18-04-001/lib/x86_64-linux-gnu | xargs -I@ bash -c 'filedump-jq @ >$(echo diff-@ | tr "/" "-").tsv'
+
+```
+
+OUT
+
+```
+$ ls -lh diff*.tsv
+-rw-rw-r-- 1 aine aine 27K  9月 20 12:18 diff--home-aine-script-machines-vir-ubuntu-18-04-001-lib-x86_64-linux-gnu.tsv
+-rw-rw-r-- 1 aine aine 28K  9月 20 12:17 diff--home-aine-script-machines-vir-ubuntu-18-04-template-lib-x86_64-linux-gnu.tsv
+```
+
+一括置換
+
+CMD
+
+```
+$ ag vir-ubuntu-18-04-001 diff--home-aine-script-machines-vir-ubuntu-18-04-001-lib-x86_64-linux-gnu.tsv -l | xargs perl -i -pe 's/vir-ubuntu-18-04-001/vir-ubuntu-18-04-template/'
+```
+
+
+OUT
+
+```
+
+$ ls -lh diff*.tsv
+-rw-rw-r-- 1 aine aine 28K  9月 20 12:20 diff--home-aine-script-machines-vir-ubuntu-18-04-001-lib-x86_64-linux-gnu.tsv
+-rw-rw-r-- 1 aine aine 28K  9月 20 12:17 diff--home-aine-script-machines-vir-ubuntu-18-04-template-lib-x86_64-linux-gnu.tsv
+```
+
+
+差分確認
+
+CMD
+
+```
+$ gitmerge-p4merge-bash diff--home-aine-script-machines-vir-ubuntu-18-04-001-lib-x86_64-linux-gnu.tsv diff--home-aine-script-machines-vir-ubuntu-18-04-template-lib-x86_64-linux-gnu.tsv
+```
+
+
+もうひとつほど
+
+
+```
+$ echo /home/aine/script-machines/vir-ubuntu-18-04-template/usr/share/i18n/locales /home/aine/script-machines/vir-ubuntu-18-04-001/usr/share/i18n/locales | xargs -n1 | xargs -I@ bash -c 'filedump-jq @ >$(echo diff-@ | tr "/" "-").tsv'
+```
+
+一括置換
+
+PRE
+
+```
+$ ls -lh diff*.tsv
+-rw-rw-r--  1 aine aine  28K  9月 20 12:20 diff--home-aine-script-machines-vir-ubuntu-18-04-001-lib-x86_64-linux-gnu.tsv
+-rw-rw-r--  1 aine aine  48K  9月 20 12:32 diff--home-aine-script-machines-vir-ubuntu-18-04-001-usr-share-i18n-locales.tsv
+-rw-rw-r--  1 aine aine  28K  9月 20 12:17 diff--home-aine-script-machines-vir-ubuntu-18-04-template-lib-x86_64-linux-gnu.tsv
+-rw-rw-r--  1 aine aine  50K  9月 20 12:32 diff--home-aine-script-machines-vir-ubuntu-18-04-template-usr-share-i18n-locales.tsv
+```
+
+CMD
+
+```
+$ ag vir-ubuntu-18-04-001 diff--home-aine-script-machines-vir-ubuntu-18-04-001-usr-share-i18n-locales.tsv -l | xargs perl -i -pe 's/vir-ubuntu-18-04-001/vir-ubuntu-18-04-template/'
+```
+
+
+
+POST
+
+```
+$ ls -lh diff*.tsv
+-rw-rw-r-- 1 aine aine 28K  9月 20 12:20 diff--home-aine-script-machines-vir-ubuntu-18-04-001-lib-x86_64-linux-gnu.tsv
+-rw-rw-r-- 1 aine aine 50K  9月 20 12:33 diff--home-aine-script-machines-vir-ubuntu-18-04-001-usr-share-i18n-locales.tsv
+-rw-rw-r-- 1 aine aine 28K  9月 20 12:17 diff--home-aine-script-machines-vir-ubuntu-18-04-template-lib-x86_64-linux-gnu.tsv
+-rw-rw-r-- 1 aine aine 50K  9月 20 12:32 diff--home-aine-script-machines-vir-ubuntu-18-04-template-usr-share-i18n-locales.tsv
+```
+
+差分確認
+
+CMD
+
+```
+$ gitmerge-p4merge-bash diff--home-aine-script-machines-vir-ubuntu-18-04-001-usr-share-i18n-locales.tsv diff--home-aine-script-machines-vir-ubuntu-18-04-template-usr-share-i18n-locales.tsv
+```
+
+どうやら、ディレクトリ名の違いによる差分だけのようだ
 
 
 
