@@ -165,6 +165,14 @@ $ diff vir-ubuntu-18-04-001-step01.tsv vir-ubuntu-18-04-template.tsv
 
 ```
 
+グラフィックに見ると便利
+
+```
+$ gitmerge-p4merge-bash vir-ubuntu-18-04-001-step01.tsv vir-ubuntu-18-04-template.tsv
+```
+
+
+
 
 
 
