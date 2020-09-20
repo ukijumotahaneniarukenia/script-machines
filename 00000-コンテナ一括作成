@@ -1,0 +1,37 @@
+作業ディレクトリに移動
+
+```
+cd $HOME/script-machines
+```
+
+実行コマンド作成
+
+```
+bash create-setup-cmd.sh 1 5 ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';done  >execute-setup-cmd.sh
+```
+
+権限付与
+
+```
+chmod 755 execute-setup-cmd.sh
+```
+
+rootユーザーで実行
+
+```
+sudo bash execute-setup-cmd.sh
+```
+
+コンテナディレクトリに移動
+
+PRE
+```
+su root
+```
+
+CMD
+```
+cd /var/lib/machines
+```
+
+00001へつづく
