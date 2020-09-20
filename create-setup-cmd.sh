@@ -118,15 +118,6 @@ eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "c
 
 CNT=$(eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | wc -l)
 
-#コンテナホストとコンテナゲスト間の疎通ファイルの作成
-#テンプレートファイルからの生成
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1|nl|\
-  while read n h;do
-
-    echo "cd $WORKDIR && machinectl shell root@$REPLICA_NAME-$(printf $SUBGRP_DIGIT $[n]) /usr/bin/ln -sf /dev/null /etc/systemd/network/80-container-host0.network"
-
-  done
-
 #コンテナゲストのネットワーク設定ファイルの作成
 #テンプレートファイルからの生成
 if [ ! -f $HOST0_NETWORK_NAME ];then
@@ -153,6 +144,16 @@ for keyword in ${KEYWORDS[@]} ;do
 
 done
 
+#コンテナホストとコンテナゲスト間の疎通ファイルの作成
+#テンプレートファイルからの生成
+#コピーしてから向き先変える
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1|nl|\
+  while read n h;do
+
+    echo "cd $WORKDIR && machinectl shell root@$REPLICA_NAME-$(printf $SUBGRP_DIGIT $[n]) /usr/bin/ln -sf /dev/null /etc/systemd/network/80-container-host0.network"
+
+  done
+
 #コンテナゲストのネットワークないしリゾルバサービスの停止、有効化、開始、状態確認コマンドの作成
 for action in ${ACTION_LIST[@]} ;do
 
@@ -178,4 +179,4 @@ done
 eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I{} echo systemctl stop systemd-nspawn@$REPLICA_NAME-{}.service
 eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I{} echo systemctl enable systemd-nspawn@$REPLICA_NAME-{}.service
 eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I{} echo systemctl start systemd-nspawn@$REPLICA_NAME-{}.service
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I{} echo systemctl status systemd-nspawn@$REPLICA_NAME-{}.service
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I{} echo systemctl status --no-pager systemd-nspawn@$REPLICA_NAME-{}.service
