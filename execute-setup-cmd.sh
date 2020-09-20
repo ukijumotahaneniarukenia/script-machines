@@ -1,12 +1,32 @@
-echo /var/lib/machines/.#vir-ubuntu-18-04-001 | xargs rm -rf
+systemctl status --no-pager systemd-nspawn@vir-ubuntu-18-04-001.service
 wait $!
-echo /var/lib/machines/.#vir-ubuntu-18-04-002 | xargs rm -rf
+systemctl status --no-pager systemd-nspawn@vir-ubuntu-18-04-002.service
 wait $!
-echo /var/lib/machines/.#vir-ubuntu-18-04-003 | xargs rm -rf
+systemctl status --no-pager systemd-nspawn@vir-ubuntu-18-04-003.service
 wait $!
-echo /var/lib/machines/.#vir-ubuntu-18-04-004 | xargs rm -rf
+systemctl status --no-pager systemd-nspawn@vir-ubuntu-18-04-004.service
 wait $!
-echo /var/lib/machines/.#vir-ubuntu-18-04-005 | xargs rm -rf
+systemctl status --no-pager systemd-nspawn@vir-ubuntu-18-04-005.service
+wait $!
+systemctl stop systemd-nspawn@vir-ubuntu-18-04-001.service
+wait $!
+systemctl stop systemd-nspawn@vir-ubuntu-18-04-002.service
+wait $!
+systemctl stop systemd-nspawn@vir-ubuntu-18-04-003.service
+wait $!
+systemctl stop systemd-nspawn@vir-ubuntu-18-04-004.service
+wait $!
+systemctl stop systemd-nspawn@vir-ubuntu-18-04-005.service
+wait $!
+systemctl status --no-pager systemd-nspawn@vir-ubuntu-18-04-001.service
+wait $!
+systemctl status --no-pager systemd-nspawn@vir-ubuntu-18-04-002.service
+wait $!
+systemctl status --no-pager systemd-nspawn@vir-ubuntu-18-04-003.service
+wait $!
+systemctl status --no-pager systemd-nspawn@vir-ubuntu-18-04-004.service
+wait $!
+systemctl status --no-pager systemd-nspawn@vir-ubuntu-18-04-005.service
 wait $!
 cd /var/lib/machines && machinectl terminate vir-ubuntu-18-04-001
 wait $!
@@ -17,6 +37,16 @@ wait $!
 cd /var/lib/machines && machinectl terminate vir-ubuntu-18-04-004
 wait $!
 cd /var/lib/machines && machinectl terminate vir-ubuntu-18-04-005
+wait $!
+echo /var/lib/machines/.#vir-ubuntu-18-04-001 | xargs rm -rf
+wait $!
+echo /var/lib/machines/.#vir-ubuntu-18-04-002 | xargs rm -rf
+wait $!
+echo /var/lib/machines/.#vir-ubuntu-18-04-003 | xargs rm -rf
+wait $!
+echo /var/lib/machines/.#vir-ubuntu-18-04-004 | xargs rm -rf
+wait $!
+echo /var/lib/machines/.#vir-ubuntu-18-04-005 | xargs rm -rf
 wait $!
 rm -rf /var/lib/machines/vir-ubuntu-18-04-001
 wait $!

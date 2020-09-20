@@ -84,11 +84,20 @@ SUBGRP_DIGIT="%03d"
 START_HOST_NO=$(printf $SUBGRP_DIGIT $s)
 END_HOST_NO=$(printf $SUBGRP_DIGIT $e)
 
-#ロックファイルの削除
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo "echo $DEPLOY_DIR/.#$REPLICA_NAME-@ | xargs rm -rf"
+#コンテナホストのsystemd-nspawnサービスの状態確認
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I{} echo systemctl status --no-pager systemd-nspawn@$REPLICA_NAME-{}.service
+
+#コンテナホストのsystemd-nspawnサービスの停止
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I{} echo systemctl stop systemd-nspawn@$REPLICA_NAME-{}.service
+
+#コンテナホストのsystemd-nspawnサービスの状態確認
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I{} echo systemctl status --no-pager systemd-nspawn@$REPLICA_NAME-{}.service
 
 #仮想コンテナプロセスの停止
 eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo "cd $DEPLOY_DIR && machinectl terminate $REPLICA_NAME-@"
+
+#ロックファイルの削除
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo "echo $DEPLOY_DIR/.#$REPLICA_NAME-@ | xargs rm -rf"
 
 #仮想コンテナファイル群の削除
 eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo rm -rf $DEPLOY_DIR/$REPLICA_NAME-@
