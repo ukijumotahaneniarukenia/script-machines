@@ -52,35 +52,11 @@ EXE
 root@aine-MS-7B98:/usr/local/src/script-repo# bash ubuntu-18-04-install-dev-pkg.sh
 ```
 
+システムVIMのインストール
 
 CMD
 
 ```
-bash ubuntu-18-04-install-vim-user.sh
-```
-
-
-CMD
-
-```
-root@aine-MS-7B98:/usr/local/src/script-repo# apt install -y curl
-```
-
-EXE
-
-```
-root@aine-MS-7B98:/usr/local/src/script-repo# bash ubuntu-18-04-install-vim_plug.sh
-
-```
-
-
-CMD
-
-system-vim
-
-```
-#!/usr/bin/env bash
-
 apt install -y autoconf automake gcc git make
 
 apt update
@@ -102,6 +78,28 @@ make -j12 install
 ln -fsr /usr/local/bin/vim /usr/bin/vi
 ```
 
+ユーザー個別のVIM設定のインストール
+
+
+CMD
+
+```
+bash ubuntu-18-04-install-vim-user.sh
+```
+
+
+CMD
+
+```
+root@aine-MS-7B98:/usr/local/src/script-repo# apt install -y curl
+```
+
+EXE
+
+```
+root@aine-MS-7B98:/usr/local/src/script-repo# bash ubuntu-18-04-install-vim_plug.sh
+
+```
 
 CMD
 
@@ -126,11 +124,6 @@ root@aine-MS-7B98:/usr/local/src/script-repo# bash ubuntu-00-00-config-env-syste
 ```
 
 CMD
-```
-$ sudo bash ubuntu-18-04-install-fcitx_mozc.sh
-```
-
-CMD
 
 ```
 root@aine-MS-7B98:/usr/local/src/script-repo# bash ubuntu-18-04-config-font-RictyDiminished.sh
@@ -142,7 +135,7 @@ CMD
 
 ```
 aine@aine-MS-7B98:/usr/local/src/script-repo$ source ~/.bashrc
-aine ukijumotahaneniarukenia aine-MS-7B98 15:08:00 /usr/local/src/script-repo$
-$ 
-
 ```
+
+
+日本語入力以外はOK
