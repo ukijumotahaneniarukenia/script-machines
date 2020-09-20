@@ -139,6 +139,14 @@ uid=1000(vir-aine) gid=1000(vir-aine) groups=1000(vir-aine)
 
 一度ブートすると、権限等がおかしくなるので、一度デフォルトに戻す
 
+対象の枝番に置換
+
+```
+$ ag /var/lib/machines/vir-ubuntu-18-04-001 change-default-permission.sh -l | xargs perl -i -pe 's;/var/lib/machines/vir-ubuntu-18-04-001;/var/lib/machines/vir-ubuntu-18-04-002;g'
+```
+
+実行
+
 ```
 time bash change-default-permission.sh 1>change-default-permission-stdout.log 2>change-default-permission-stderr.log
 ```
