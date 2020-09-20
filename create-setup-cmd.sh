@@ -16,15 +16,11 @@ CONTAINER_HOST0_NETWORK_NAME=80-container-host0.network
 
 HOST0_NETWORK_NAME=host0.network
 
-ENTYR_FILE_NAME=systemd_nspawn-container-guest-listup-entry-cmd.sh
-
-OUTPUT_FILE_NAME=systemd_nspawn-container-guest-listup-setup-cmd.sh
-
 usage(){
 cat <<EOS
 Usage:
 
-   IN: $0 1 5 ubuntu-18-04 > $DEPLOY_DIR/$OUTPUT_FILE_NAME
+   IN: $0 1 5 ubuntu-18-04
 
   OUT:
 
@@ -37,12 +33,6 @@ exit 0
 s=$1;shift;
 e=$1;shift;
 TEMPLATE_OS=$1;shift;
-
-#if [[ $UID  -ne 0 ]];then
-#
-#  usage
-#
-#fi
 
 if [ -z $s ];then
 

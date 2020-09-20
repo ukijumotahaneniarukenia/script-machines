@@ -1,5 +1,15 @@
 # script-machines
 
+コンテナ一括作成
+
+```
+$ bash create-setup-cmd.sh 1 5 ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';done  >execute-setup-cmd.sh
+
+$ chmod 755 execute-setup-cmd.sh
+
+$ sudo bash execute-setup-cmd.sh
+```
+
 
 権限一括デフォルト変更
 
