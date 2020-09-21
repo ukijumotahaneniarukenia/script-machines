@@ -111,6 +111,32 @@ $ cat systemd_nspawn-container-list.json | jq -r 'map(select(.machine=="vir-ubun
 $ systemd-nspawn --user=aine --setenv=MACHINE_NAME=vir-ubuntu-18-04-002 --setenv=MACHINE_IP=192.168.1.211 -D /var/lib/machines/vir-ubuntu-18-04-002
 ```
 
+この起動パタンだとhostnameの方から影響がでるので、hostsファイルにhostnameコマンドの出力結果を追記
+
+```
+$ which sudo
+/usr/bin/sudo
+
+$ ll /usr/bin/sudo
+-rwsr-xr-x 1 root root 146K  1月 18  2018 /usr/bin/sudo
+
+$ hostname
+vir-ubuntu-18-04-002
+
+$ sudo echo unko
+sudo: unable to resolve host vir-ubuntu-18-04-002: Resource temporarily unavailable
+unko
+
+$ sudo vi /etc/hosts
+
+ホストファイルにhostnameの出力結果を追記
+$ cat /etc/hosts
+127.0.0.1	localhost vir-ubuntu-18-04-002
+::1		localhost ip6-localhost ip6-loopback
+ff02::1		ip6-allnodes
+ff02::2		ip6-allrouters
+```
+
 
 GUI起動できないがブリッチ接続できている（他コンテナゲストへのpingは通った）
 
