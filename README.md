@@ -114,7 +114,7 @@ $ machinectl shell root@vir-ubuntu-18-04-002
 ```
 
 
-コンテナホストでどのコンテナゲストがどのMACアドレスを使用しているか確認できる
+コンテナホストでどのコンテナゲストがどのIPアドレスを使用しているか確認できる
 ```
 $ machinectl list -o json --no-pager | jq
 [
