@@ -48,15 +48,15 @@ echo /var/lib/machines/.#vir-ubuntu-18-04-004 | xargs rm -rf
 wait $!
 echo /var/lib/machines/.#vir-ubuntu-18-04-005 | xargs rm -rf
 wait $!
-cd /var/lib/machines && machinectl terminate vir-ubuntu-18-04-001
+cd /var/lib/machines && machinectl start vir-ubuntu-18-04-001
 wait $!
-cd /var/lib/machines && machinectl terminate vir-ubuntu-18-04-002
+cd /var/lib/machines && machinectl start vir-ubuntu-18-04-002
 wait $!
-cd /var/lib/machines && machinectl terminate vir-ubuntu-18-04-003
+cd /var/lib/machines && machinectl start vir-ubuntu-18-04-003
 wait $!
-cd /var/lib/machines && machinectl terminate vir-ubuntu-18-04-004
+cd /var/lib/machines && machinectl start vir-ubuntu-18-04-004
 wait $!
-cd /var/lib/machines && machinectl terminate vir-ubuntu-18-04-005
+cd /var/lib/machines && machinectl start vir-ubuntu-18-04-005
 wait $!
 machinectl list -all
 wait $!
