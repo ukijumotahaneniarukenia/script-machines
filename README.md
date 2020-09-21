@@ -53,7 +53,7 @@ sys	0m28.234s
 一度コンテナゲストをブート起動すると、コンテナホストからのmachinectlでの制御はできなくなり、コンテナ環境内のネットワークが無効になるので、コンテナゲストファイルの洗い替え等からやり直すオペレーションが発生することが確認できた
 
 
-一度コンテナゲストをブート起動すると、ネットワークないしリゾルバサービスが停止していることが確認できた。
+一度コンテナゲストをブート起動すると、ネットワークサービスが停止していることが確認できた。
 
 
 machinectlで起動したあと、X転送を有効にするために以下の設定を実行ユーザー単位に即した値を設定してやればよさげ
@@ -64,7 +64,20 @@ XDG_RUNTIME_DIR環境変数の値とソケットファイルのマウント
 
 これを直せばいけるかも
 
+- https://www.atmarkit.co.jp/fsecurity/rensai/lids03/lids01.html
+
 ```
+aine@aine-MS-7B98:~$ systemctl --no-pager status systemd-networkd
+● systemd-networkd.service - Network Service
+   Loaded: loaded (/lib/systemd/system/systemd-networkd.service; enabled; vendor preset: enabled)
+   Active: inactive (dead)
+Condition: start condition failed at Mon 2020-09-21 14:56:00 JST; 2min 39s ago
+           └─ ConditionCapability=CAP_NET_ADMIN was not met
+     Docs: man:systemd-networkd.service(8)
+     
+     
+     
+     
 XDG_RUNTIME_DIR=/run/user/1000
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
 LESSOPEN=| /usr/bin/lesspipe %s
