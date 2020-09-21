@@ -268,4 +268,6 @@ deb http://security.ubuntu.com/ubuntu bionic-security universe
 
 deb http://security.ubuntu.com/ubuntu bionic-security multiverse
 EOS
+
+$ sudo apt update
 ```
