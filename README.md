@@ -127,6 +127,14 @@ $ machinectl list -o json --no-pager | jq
     "addresses": "192.168.1.210\nfe80::ec3e:dff:febc:4d55"
   },
   {
+    "machine": "vir-ubuntu-18-04-002",
+    "class": "container",
+    "service": "systemd-nspawn",
+    "os": "ubuntu",
+    "version": "18.04",
+    "addresses": "192.168.1.211\nfe80::18d7:6aff:fef7:799c"
+  },
+  {
     "machine": "vir-ubuntu-18-04-003",
     "class": "container",
     "service": "systemd-nspawn",
