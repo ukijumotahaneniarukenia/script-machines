@@ -15,3 +15,6 @@ $ chmod 755 execute-post-setup-cmd.sh
 
 $ sudo bash execute-post-setup-cmd.sh
 ```
+
+
+一度マシンをブート起動すると、machinectlでの制御はできなくなり、コンテナ環境内のネットワークが無効になるので、コンテナゲストファイルの洗い替え等からやり直すオペレーションが発生することが確認できた
