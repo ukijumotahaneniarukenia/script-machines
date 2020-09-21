@@ -51,3 +51,39 @@ sys	0m28.234s
 ```
 
 一度コンテナゲストをブート起動すると、コンテナホストからのmachinectlでの制御はできなくなり、コンテナ環境内のネットワークが無効になるので、コンテナゲストファイルの洗い替え等からやり直すオペレーションが発生することが確認できた
+
+
+一度コンテナゲストをブート起動すると、ネットワークないしリゾルバサービスが停止していることが確認できた。
+
+
+machinectlで起動したあと、X転送を有効にするために以下の設定を実行ユーザー単位に即した値を設定してやればよさげ
+
+XDG_RUNTIME_DIR環境変数の値とソケットファイルのマウント
+
+現状は実行ユーザー単位に即した値ではなく、一般ユーザーでログインしてもルートユーザーのものとなっている
+
+これを直せばいけるかも
+
+```
+XDG_RUNTIME_DIR=/run/user/1000
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+LESSOPEN=| /usr/bin/lesspipe %s
+_=/usr/bin/env
+aine@aine-MS-7B98:~$ ll /run/user/1000
+total 0
+drwx------ 3 aine aine 60 Sep 21 14:56 ./
+drwxr-xr-x 3 root root 60 Sep 21 14:56 ../
+drwxr-xr-x 2 aine aine 80 Sep 21 14:56 systemd/
+aine@aine-MS-7B98:~$ 
+aine@aine-MS-7B98:~$ 
+aine@aine-MS-7B98:~$ 
+aine@aine-MS-7B98:~$ ll /run/user/1000/systemd/
+total 0
+drwxr-xr-x 2 aine aine 80 Sep 21 14:56 ./
+drwx------ 3 aine aine 60 Sep 21 14:56 ../
+srwxrwxr-x 1 aine aine  0 Sep 21 14:56 notify=
+srwxrwxr-x 1 aine aine  0 Sep 21 14:56 private=
+aine@aine-MS-7B98:~$ ll /run/user/1000/systemd/*
+srwxrwxr-x 1 aine aine 0 Sep 21 14:56 /run/user/1000/systemd/notify=
+srwxrwxr-x 1 aine aine 0 Sep 21 14:56 /run/user/1000/systemd/private=
+```
