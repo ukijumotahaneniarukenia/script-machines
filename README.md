@@ -38,7 +38,16 @@ $ cat execute-boot-setup-cmd.sh | grep vir-ubuntu-18-04-001 | while read cmd;do 
 
 $ chmod 755 execute-boot-setup-cmd-vir-ubuntu-18-04-001.sh
 
+#権限デフォ値一括設定の経過時間でほとんど
 $ time sudo bash execute-boot-setup-cmd-vir-ubuntu-18-04-001.sh
+
+real	1m4.807s
+user	0m40.652s
+sys	0m28.170s
+
+real	1m8.980s
+user	0m40.742s
+sys	0m28.234s
 ```
 
 一度コンテナゲストをブート起動すると、コンテナホストからのmachinectlでの制御はできなくなり、コンテナ環境内のネットワークが無効になるので、コンテナゲストファイルの洗い替え等からやり直すオペレーションが発生することが確認できた
