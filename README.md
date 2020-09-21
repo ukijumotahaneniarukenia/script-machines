@@ -85,6 +85,16 @@ $ systemd-nspawn --capability=CAP_NET_ADMIN -b -D /var/lib/machines/vir-ubuntu-1
 
 ```
 
+
+これでなおった
+
+明示的に指定してあげればOK
+
+```
+$ systemd-nspawn --network-bridge=br0 --capability=CAP_NET_ADMIN -b -D /var/lib/machines/vir-ubuntu-18-04-002
+
+```
+
 ```
      
      
