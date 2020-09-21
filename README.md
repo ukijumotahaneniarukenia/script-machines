@@ -35,6 +35,8 @@ $ time sudo bash execute-boot-setup-cmd.sh
 #個別boot
 $ cat execute-boot-setup-cmd.sh | grep vir-ubuntu-18-04-001 >execute-boot-setup-cmd-vir-ubuntu-18-04-001.sh
 
+$ chmod 755 execute-boot-setup-cmd-vir-ubuntu-18-04-001.sh
+
 $ time sudo bash execute-boot-setup-cmd-vir-ubuntu-18-04-001.sh
 ```
 
