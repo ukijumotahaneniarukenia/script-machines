@@ -21,6 +21,12 @@ sys	0m3.393s
 
 $ reboot
 
+$ bash create-info-setup-cmd.sh 1 5 ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';done  >execute-info-setup-cmd.sh
+
+$ chmod 755 execute-info-setup-cmd.sh
+
+$ time sudo bash execute-info-setup-cmd.sh
+
 $ bash create-post-setup-cmd.sh 1 5 ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';done  >execute-post-setup-cmd.sh
 
 $ chmod 755 execute-post-setup-cmd.sh
