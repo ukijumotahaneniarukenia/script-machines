@@ -116,7 +116,8 @@ $ machinectl shell root@vir-ubuntu-18-04-002
 
 コンテナホストでどのコンテナゲストがどのIPアドレスを使用しているか確認できる
 ```
-$ machinectl list -o json --no-pager | jq
+$ machinectl list -o json --no-pager | jq '' >systemd_nspawn-container-list.json
+$ cat systemd_nspawn-container-list.json
 [
   {
     "machine": "vir-ubuntu-18-04-001",
