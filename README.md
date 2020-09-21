@@ -76,7 +76,16 @@ aine@aine-MS-7B98:~$ systemctl --no-pager status systemd-networkd
 Condition: start condition failed at Mon 2020-09-21 14:56:00 JST; 2min 39s ago
            └─ ConditionCapability=CAP_NET_ADMIN was not met
      Docs: man:systemd-networkd.service(8)
-     
+```
+
+ブート起動時に以下のように実行するとネットワークサービスは起動する
+
+```
+$ systemd-nspawn --capability=CAP_NET_ADMIN -b -D /var/lib/machines/vir-ubuntu-18-04-002
+
+```
+
+```
      
      
      
