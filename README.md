@@ -21,10 +21,15 @@ $ chmod 755 execute-post-setup-cmd.sh
 
 $ time sudo bash execute-post-setup-cmd.sh
 
+real	14m0.725s
+user	0m1.116s
+sys	0m1.503s
+
 $ bash create-boot-setup-cmd.sh 1 5 ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';done  >execute-boot-setup-cmd.sh
 
 $ chmod 755 execute-boot-setup-cmd.sh
 
+必要なコンテナのみbootする
 $ time sudo bash execute-boot-setup-cmd.sh
 ```
 
