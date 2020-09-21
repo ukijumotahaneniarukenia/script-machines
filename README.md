@@ -29,8 +29,13 @@ $ bash create-boot-setup-cmd.sh 1 5 ubuntu-18-04 | while read cmd;do echo $cmd;e
 
 $ chmod 755 execute-boot-setup-cmd.sh
 
-必要なコンテナのみbootする
+#一括boot
 $ time sudo bash execute-boot-setup-cmd.sh
+
+#個別boot
+$ cat execute-boot-setup-cmd.sh | grep vir-ubuntu-18-04-001 >execute-boot-setup-cmd-vir-ubuntu-18-04-001.sh
+
+$ time sudo bash execute-boot-setup-cmd-vir-ubuntu-18-04-001.sh
 ```
 
 一度コンテナゲストをブート起動すると、コンテナホストからのmachinectlでの制御はできなくなり、コンテナ環境内のネットワークが無効になるので、コンテナゲストファイルの洗い替え等からやり直すオペレーションが発生することが確認できた
