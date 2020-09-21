@@ -54,76 +54,61 @@ sys	0m28.170s
 real	1m8.980s
 user	0m40.742s
 sys	0m28.234s
+
+
+#ブート起動で権限整備
+
+$ su root
+
+$ cd /var/lib/machines
+
+$ machinectl list --all
+
+$ machinectl terminate vir-ubuntu-18-04-001
+
+$ machinectl list --all
+
+コンテナログイン後
+
+$ chown -R aine:aine /home/aine
+
+$ chmod 4755 /usr/bin/sudo
+
+$ sudo echo unko
+
+$ sudo apt install -y firefox
 ```
 
-一度コンテナゲストをブート起動すると、コンテナホストからのmachinectlでの制御はできなくなり、コンテナ環境内のネットワークが無効になるので、コンテナゲストファイルの洗い替え等からやり直すオペレーションが発生することが確認できた
+一度コンテナゲストをブート起動すると、コンテナホストからのmachinectlでの制御はできなくなり（shellサブコマンドの操作）、コンテナ環境内のネットワークが無効になるので、コンテナゲストファイルの洗い替え等からやり直すオペレーションが発生することが確認できた
 
 
-一度コンテナゲストをブート起動すると、ネットワークサービスが停止していることが確認できた。
+GUI起動できるがブリッチ接続できていない
 
-
-machinectlで起動したあと、X転送を有効にするために以下の設定を実行ユーザー単位に即した値を設定してやればよさげ
-
-XDG_RUNTIME_DIR環境変数の値とソケットファイルのマウント
-
-現状は実行ユーザー単位に即した値ではなく、一般ユーザーでログインしてもルートユーザーのものとなっている
-
-これを直せばいけるかも
-
-- https://www.atmarkit.co.jp/fsecurity/rensai/lids03/lids01.html
-
-- https://github.com/systemd/systemd/issues/12313
+起動パタン１
 
 ```
-aine@aine-MS-7B98:~$ systemctl --no-pager status systemd-networkd
-● systemd-networkd.service - Network Service
-   Loaded: loaded (/lib/systemd/system/systemd-networkd.service; enabled; vendor preset: enabled)
-   Active: inactive (dead)
-Condition: start condition failed at Mon 2020-09-21 14:56:00 JST; 2min 39s ago
-           └─ ConditionCapability=CAP_NET_ADMIN was not met
-     Docs: man:systemd-networkd.service(8)
+$ systemd-nspawn -b -D /var/lib/machines/vir-ubuntu-18-04-002
 ```
 
-ブート起動時に以下のように実行するとネットワークサービスは起動する
+起動パタン２
 
 ```
 $ systemd-nspawn --capability=CAP_NET_ADMIN -b -D /var/lib/machines/vir-ubuntu-18-04-002
-
 ```
 
 
-これでなおった
 
-明示的に指定してあげればOK
+GUI起動できないがブリッチ接続できる
 
-```
-$ systemd-nspawn --network-bridge=br0 --capability=CAP_NET_ADMIN -b -D /var/lib/machines/vir-ubuntu-18-04-002
+起動パタン１
 
 ```
+$ systemd-nspawn --network-bridge=br0 -b -D /var/lib/machines/vir-ubuntu-18-04-002
 
 ```
-     
-     
-     
-XDG_RUNTIME_DIR=/run/user/1000
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
-LESSOPEN=| /usr/bin/lesspipe %s
-_=/usr/bin/env
-aine@aine-MS-7B98:~$ ll /run/user/1000
-total 0
-drwx------ 3 aine aine 60 Sep 21 14:56 ./
-drwxr-xr-x 3 root root 60 Sep 21 14:56 ../
-drwxr-xr-x 2 aine aine 80 Sep 21 14:56 systemd/
-aine@aine-MS-7B98:~$ 
-aine@aine-MS-7B98:~$ 
-aine@aine-MS-7B98:~$ 
-aine@aine-MS-7B98:~$ ll /run/user/1000/systemd/
-total 0
-drwxr-xr-x 2 aine aine 80 Sep 21 14:56 ./
-drwx------ 3 aine aine 60 Sep 21 14:56 ../
-srwxrwxr-x 1 aine aine  0 Sep 21 14:56 notify=
-srwxrwxr-x 1 aine aine  0 Sep 21 14:56 private=
-aine@aine-MS-7B98:~$ ll /run/user/1000/systemd/*
-srwxrwxr-x 1 aine aine 0 Sep 21 14:56 /run/user/1000/systemd/notify=
-srwxrwxr-x 1 aine aine 0 Sep 21 14:56 /run/user/1000/systemd/private=
+
+起動パタン２
+
+```
+$ machinectl shell root@vir-ubuntu-18-04-002
 ```
