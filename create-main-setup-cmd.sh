@@ -97,22 +97,22 @@ eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I{} echo systemctl
 #コンテナホストのsystemd-nspawnサービスの状態確認
 eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I{} echo systemctl status --no-pager systemd-nspawn@$REPLICA_NAME-{}.service
 
-#仮想コンテナプロセスの停止
+#コンテナゲストプロセスの停止
 eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo "cd $DEPLOY_DIR && machinectl terminate $REPLICA_NAME-@"
 
 #ロックファイルの削除
 eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo "echo $DEPLOY_DIR/.#$REPLICA_NAME-@ | xargs rm -rf"
 
-#仮想コンテナファイル群の削除
+#コンテナゲストファイル群の削除
 eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo rm -rf $DEPLOY_DIR/$REPLICA_NAME-@
 
-#仮想コンテナファイルの配備
+#コンテナゲストファイルの配備
 eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo cp -a $DEPLOY_DIR/$SEED_NAME $DEPLOY_DIR/$REPLICA_NAME-@
 
-#仮想コンテナプロセスの開始
+#コンテナゲストプロセスの開始
 eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl start $REPLICA_NAME-%s\n" $(printf $SUBGRP_DIGIT $n);done
 
-#仮想コンテナのrootユーザーのパスワード設定
+#コンテナゲストのrootユーザーのパスワード設定
 eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27echo \x22root:root_pwd\x22|chpasswd\x27;\n" $(printf $SUBGRP_DIGIT $[n]);done
 
 #おまじない
