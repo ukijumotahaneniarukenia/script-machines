@@ -107,6 +107,8 @@ eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo "cd $DEPLO
 #コンテナゲストプロセスの状態確認
 echo 'machinectl list -all'
 
-
-
-
+#デフォルトパーミッション設定コマンドの作成
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | \
+	while read n;do
+    printf "ag /var/lib/machines/$SEED_NAME change-default-permission.sh -l | xargs perl -pe \x22s;/var/lib/machines/$SEED_NAME;/var/lib/machines/$REPLICA_NAME-%s;g\x22 > change-default-permission-$REPLICA_NAME-%s.sh\n" $(printf $SUBGRP_DIGIT $[n]) $(printf $SUBGRP_DIGIT $[n]);
+	done
