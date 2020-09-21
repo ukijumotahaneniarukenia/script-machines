@@ -90,13 +90,32 @@ GUI起動できるがブリッチ接続できている（他コンテナゲス�
 $ systemd-nspawn -b -D /var/lib/machines/vir-ubuntu-18-04-002
 ```
 
+ログイン後以下の環境変数を手動設定
+
+だいぶいけてない（）
+
+```
+export MACHINE_NAME=vir-ubuntu-18-04-002
+export MACHINE_IP=$(cat systemd_nspawn-container-list.json | jq -r 'map(select(.machine=="vir-ubuntu-18-04-002"))[].addresses|split("\n")[0]')
+```
+
+
 起動パタン２
 
 ```
 $ systemd-nspawn --capability=CAP_NET_ADMIN -b -D /var/lib/machines/vir-ubuntu-18-04-002
 ```
 
-起動パタン３（これに決定）
+ログイン後以下の環境変数を手動設定
+
+だいぶいけてない
+
+```
+export MACHINE_NAME=vir-ubuntu-18-04-002
+export MACHINE_IP=$(cat systemd_nspawn-container-list.json | jq -r 'map(select(.machine=="vir-ubuntu-18-04-002"))[].addresses|split("\n")[0]')
+```
+
+起動パタン３（systemdがつかえないので、dockerと同じ振る舞いになる。systemdを使えるようにしたいので、これはNG。）
 
 ブート起動しないなら環境変数をコンテナゲスト側に持ってこれた
 
