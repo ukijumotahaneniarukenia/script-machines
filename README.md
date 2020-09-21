@@ -240,3 +240,32 @@ $ cat systemd_nspawn-container-list.json
 ```
 $ sudo ln -fsr /usr/local/bin/vim /usr/bin/vi
 ```
+
+
+レポジトリ寂しいので、以下をいい感じに追加
+
+```
+$ cat <<EOS >/etc/apt/sources.list
+deb http://ftp.jaist.ac.jp/pub/Linux/ubuntu bionic main
+
+deb http://jp.archive.ubuntu.com/ubuntu/ bionic main restricted
+
+deb http://jp.archive.ubuntu.com/ubuntu/ bionic-updates main restricted
+
+deb http://jp.archive.ubuntu.com/ubuntu/ bionic universe
+
+deb http://jp.archive.ubuntu.com/ubuntu/ bionic-updates universe
+
+deb http://jp.archive.ubuntu.com/ubuntu/ bionic multiverse
+
+deb http://jp.archive.ubuntu.com/ubuntu/ bionic-updates multiverse
+
+deb http://jp.archive.ubuntu.com/ubuntu/ bionic-backports main restricted universe multiverse
+
+deb http://security.ubuntu.com/ubuntu bionic-security main restricted
+
+deb http://security.ubuntu.com/ubuntu bionic-security universe
+
+deb http://security.ubuntu.com/ubuntu bionic-security multiverse
+EOS
+```
