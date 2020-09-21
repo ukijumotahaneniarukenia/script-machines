@@ -19,21 +19,22 @@ $ bash create-post-setup-cmd.sh 1 5 ubuntu-18-04 | while read cmd;do echo $cmd;e
 
 $ chmod 755 execute-post-setup-cmd.sh
 
+5つのコンテナで同じ規模感のスクリプト実行時にこの経過時間はdockerより早い気がする
 $ time sudo bash execute-post-setup-cmd.sh
 
 real	14m0.725s
 user	0m1.116s
 sys	0m1.503s
 
+#一括boot
 $ bash create-boot-setup-cmd.sh 1 5 ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';done  >execute-boot-setup-cmd.sh
 
 $ chmod 755 execute-boot-setup-cmd.sh
 
-#一括boot
 $ time sudo bash execute-boot-setup-cmd.sh
 
 #個別boot
-$ cat execute-boot-setup-cmd.sh | grep vir-ubuntu-18-04-001 >execute-boot-setup-cmd-vir-ubuntu-18-04-001.sh
+$ cat execute-boot-setup-cmd.sh | grep vir-ubuntu-18-04-001 | while read cmd;do echo $cmd;echo 'wait $!';done  >execute-boot-setup-cmd-vir-ubuntu-18-04-001.sh
 
 $ chmod 755 execute-boot-setup-cmd-vir-ubuntu-18-04-001.sh
 
