@@ -3,6 +3,12 @@
 コンテナ一括作成
 
 ```
+$ cd $HOME
+
+$ git clone https://github.com/ukijumotahaneniarukenia/script-machines.git
+
+$ cd $HOME/script-machines
+
 $ bash create-main-setup-cmd.sh 1 5 ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';done  >execute-main-setup-cmd.sh
 
 $ chmod 755 execute-main-setup-cmd.sh
