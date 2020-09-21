@@ -8,6 +8,12 @@ $ bash create-main-setup-cmd.sh 1 5 ubuntu-18-04 | while read cmd;do echo $cmd;e
 $ chmod 755 execute-main-setup-cmd.sh
 
 $ sudo bash execute-main-setup-cmd.sh
+
+$ bash create-post-setup-cmd.sh 1 5 ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';done  >execute-post-setup-cmd.sh
+
+$ chmod 755 execute-post-setup-cmd.sh
+
+$ sudo bash execute-post-setup-cmd.sh
 ```
 
 
@@ -35,7 +41,7 @@ cd /var/lib/machines
 ```
 $ chmod 700 change-default-permission.sh
 
-$ chown -R root:root change-default-permission.sh 
+$ chown -R root:root change-default-permission.sh
 
 $ ls -lh change-default-permission.sh
 -rwx------ 1 root root 2.9M  9月 20 13:59 change-default-permission.sh
