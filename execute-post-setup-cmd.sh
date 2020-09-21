@@ -132,6 +132,16 @@ ag /var/lib/machines/vir-ubuntu-18-04-template change-default-permission.sh -l |
 wait $!
 ag /var/lib/machines/vir-ubuntu-18-04-template change-default-permission.sh -l | xargs perl -pe "s;/var/lib/machines/vir-ubuntu-18-04-template;/var/lib/machines/vir-ubuntu-18-04-005;g" > change-default-permission-vir-ubuntu-18-04-005.sh
 wait $!
+cd /var/lib/machines && chmod 755 change-default-permission-vir-ubuntu-18-04-001.sh
+wait $!
+cd /var/lib/machines && chmod 755 change-default-permission-vir-ubuntu-18-04-002.sh
+wait $!
+cd /var/lib/machines && chmod 755 change-default-permission-vir-ubuntu-18-04-003.sh
+wait $!
+cd /var/lib/machines && chmod 755 change-default-permission-vir-ubuntu-18-04-004.sh
+wait $!
+cd /var/lib/machines && chmod 755 change-default-permission-vir-ubuntu-18-04-005.sh
+wait $!
 cd /var/lib/machines && time bash change-default-permission-vir-ubuntu-18-04-001.sh 1>change-default-permission-vir-ubuntu-18-04-001-stdout.log 2>change-default-permission-vir-ubuntu-18-04-001-stderr.log
 wait $!
 cd /var/lib/machines && time bash change-default-permission-vir-ubuntu-18-04-002.sh 1>change-default-permission-vir-ubuntu-18-04-002-stdout.log 2>change-default-permission-vir-ubuntu-18-04-002-stderr.log
