@@ -96,6 +96,13 @@ $ systemd-nspawn -b -D /var/lib/machines/vir-ubuntu-18-04-002
 $ systemd-nspawn --capability=CAP_NET_ADMIN -b -D /var/lib/machines/vir-ubuntu-18-04-002
 ```
 
+起動パタン３
+
+ブート起動しないなら環境変数をコンテナゲスト側に持ってこれた
+
+```
+$ systemd-nspawn --user=aine --setenv=MACHINE_NAME=vir-ubuntu-18-04-002 --setenv=MACHINE_IP=192.168.1.211 -D /var/lib/machines/vir-ubuntu-18-04-002
+```
 
 
 GUI起動できないがブリッチ接続できている（他コンテナゲストへのpingは通った）
