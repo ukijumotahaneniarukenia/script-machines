@@ -66,6 +66,8 @@ XDG_RUNTIME_DIR環境変数の値とソケットファイルのマウント
 
 - https://www.atmarkit.co.jp/fsecurity/rensai/lids03/lids01.html
 
+- https://github.com/systemd/systemd/issues/12313
+
 ```
 aine@aine-MS-7B98:~$ systemctl --no-pager status systemd-networkd
 ● systemd-networkd.service - Network Service
