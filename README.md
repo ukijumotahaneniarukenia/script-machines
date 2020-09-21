@@ -87,6 +87,8 @@ $ chmod 4755 /usr/bin/sudo
 
 $ sudo echo unko
 
+$ source $HOME/.bashrc
+
 $ sudo apt install -y firefox
 ```
 
