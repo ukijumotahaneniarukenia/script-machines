@@ -9,6 +9,11 @@ $ chmod 755 execute-main-setup-cmd.sh
 
 $ time sudo bash execute-main-setup-cmd.sh
 
+real	0m20.181s
+user	0m0.992s
+sys	0m3.393s
+
+
 $ bash create-post-setup-cmd.sh 1 5 ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';done  >execute-post-setup-cmd.sh
 
 $ chmod 755 execute-post-setup-cmd.sh
