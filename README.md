@@ -175,3 +175,10 @@ $ cat systemd_nspawn-container-list.json
   }
 ]
 ```
+
+
+あとなぜかviへのリンクがうまくいっていなかったので、やさしくコンテナゲストで手動実行
+
+```
+$ sudo ln -fsr /usr/local/bin/vim /usr/bin/vi
+```
