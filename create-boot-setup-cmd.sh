@@ -89,7 +89,7 @@ echo 'machinectl list -all'
 #デフォルトパーミッション設定コマンドの作成
 eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | \
 	while read n;do
-    printf "ag $DEPLOY_DIR/$SEED_NAME change-default-permission.sh -l | xargs perl -pe \x22s;$DEPLOY_DIR/$SEED_NAME;$DEPLOY_DIR/$REPLICA_NAME-%s;g\x22 > change-default-permission-$REPLICA_NAME-%s.sh\n" $(printf $SUBGRP_DIGIT $[n]) $(printf $SUBGRP_DIGIT $[n]);
+    printf "ag $DEPLOY_DIR/$SEED_NAME change-default-permission.sh -l | xargs perl -pe \x22s;$DEPLOY_DIR/$SEED_NAME;$DEPLOY_DIR/$REPLICA_NAME-%s;g\x22 > $DEPLOY_DIR/change-default-permission-$REPLICA_NAME-%s.sh\n" $(printf $SUBGRP_DIGIT $[n]) $(printf $SUBGRP_DIGIT $[n]);
 	done
 
 #デフォルトパーミッション設定コマンドの実行権限の付与
