@@ -84,7 +84,7 @@ eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo "echo $DEP
 eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo "cd $DEPLOY_DIR && machinectl terminate $REPLICA_NAME-@"
 
 #コンテナゲストプロセスの状態確認
-echo 'machinectl list -a'
+echo 'machinectl list -all'
 
 #コンテナゲストの一般ユーザーグループの作成
 eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /usr/sbin/groupadd -g 1000 aine\n" $(printf $SUBGRP_DIGIT $[n]);done
@@ -105,7 +105,7 @@ eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "c
 eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo "cd $DEPLOY_DIR && machinectl terminate $REPLICA_NAME-@"
 
 #コンテナゲストプロセスの状態確認
-echo 'machinectl list -a'
+echo 'machinectl list -all'
 
 
 
