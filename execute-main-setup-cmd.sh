@@ -88,6 +88,56 @@ cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /bin/bash -c 
 wait $!
 cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /bin/bash -c 'echo "root:root_pwd"|chpasswd';
 wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /usr/sbin/groupadd -g 1000 aine
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /usr/sbin/groupadd -g 1000 aine
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /usr/sbin/groupadd -g 1000 aine
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /usr/sbin/groupadd -g 1000 aine
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /usr/sbin/groupadd -g 1000 aine
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /usr/sbin/useradd -m -g aine -u 1000 aine
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /usr/sbin/useradd -m -g aine -u 1000 aine
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /usr/sbin/useradd -m -g aine -u 1000 aine
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /usr/sbin/useradd -m -g aine -u 1000 aine
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /usr/sbin/useradd -m -g aine -u 1000 aine
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /usr/bin/chsh -s /bin/bash aine
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /usr/bin/chsh -s /bin/bash aine
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /usr/bin/chsh -s /bin/bash aine
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /usr/bin/chsh -s /bin/bash aine
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /usr/bin/chsh -s /bin/bash aine
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /bin/bash -c 'echo "aine:aine_pwd"|chpasswd'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'echo "aine:aine_pwd"|chpasswd'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /bin/bash -c 'echo "aine:aine_pwd"|chpasswd'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /bin/bash -c 'echo "aine:aine_pwd"|chpasswd'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /bin/bash -c 'echo "aine:aine_pwd"|chpasswd'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /bin/bash -c 'echo "aine ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers '
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'echo "aine ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers '
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /bin/bash -c 'echo "aine ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers '
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /bin/bash -c 'echo "aine ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers '
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /bin/bash -c 'echo "aine ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers '
+wait $!
 cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /usr/bin/ln -sf /dev/null /etc/systemd/network/80-container-host0.network
 wait $!
 cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /usr/bin/ln -sf /dev/null /etc/systemd/network/80-container-host0.network

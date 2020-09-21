@@ -65,59 +65,75 @@ SUBGRP_DIGIT="%03d"
 START_HOST_NO=$(printf $SUBGRP_DIGIT $s)
 END_HOST_NO=$(printf $SUBGRP_DIGIT $e)
 
-#コンテナホストのsystemd-nspawnサービスの状態確認
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I{} echo systemctl status --no-pager systemd-nspawn@$REPLICA_NAME-{}.service
+#コンテナゲストのリポジトリエントリの変更
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /usr/bin/sed -i.bak 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list\n" $(printf $SUBGRP_DIGIT $[n]);done
 
-#コンテナホストのsystemd-nspawnサービスの停止
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I{} echo systemctl stop systemd-nspawn@$REPLICA_NAME-{}.service
+#コンテナゲストのリポジトリの更新
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /usr/bin/apt update\n" $(printf $SUBGRP_DIGIT $[n]);done
 
-#コンテナホストのsystemd-nspawnサービスの状態確認
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I{} echo systemctl status --no-pager systemd-nspawn@$REPLICA_NAME-{}.service
+#コンテナゲストへマストコマンドのインストール
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /usr/bin/apt install -y git curl unzip\n" $(printf $SUBGRP_DIGIT $[n]);done
 
-#コンテナゲストプロセスの停止
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo "cd $DEPLOY_DIR && machinectl terminate $REPLICA_NAME-@"
+#コンテナゲストへスクリプトレポのダウンロード
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
 
-#ロックファイルの削除
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo "echo $DEPLOY_DIR/.#$REPLICA_NAME-@ | xargs rm -rf"
+#コンテナゲストへdevコマンド群のインストール
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27cd /usr/local/src/script-repo && bash $TEMPLATE_OS-install-dev-pkg.sh\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
 
-#コンテナゲストプロセスの開始
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo "cd $DEPLOY_DIR && machinectl start $REPLICA_NAME-@"
+#コンテナゲストへvimビルドコマンド群のインストール
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /usr/bin/apt install -y autoconf automake gcc git make\n" $(printf $SUBGRP_DIGIT $[n]);done
 
-#コンテナゲストプロセスの状態確認
-echo 'machinectl list -all'
+#コンテナゲストへvimソースのダウンロード
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27cd /usr/local/src && rm -rf vim && git clone https://github.com/vim/vim.git\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
 
-#コンテナゲストの一般ユーザーグループの作成
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /usr/sbin/groupadd -g 1000 aine\n" $(printf $SUBGRP_DIGIT $[n]);done
+#コンテナゲストのvimソースの設定
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27cd /usr/local/src/vim && ./configure --with-features=huge --enable-multibyte  --enable-gpm   --enable-cscope   --enable-fontset   --enable-fail-if-missing   --prefix=/usr/local\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
 
-#コンテナゲストの一般ユーザーの作成
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /usr/sbin/useradd -m -g aine -u 1000 aine\n" $(printf $SUBGRP_DIGIT $[n]);done
+#コンテナゲストのvimソースのmake
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27cd /usr/local/src/vim && make -j12\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
 
-#コンテナゲストの一般ユーザーのログインシェルの変更
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /usr/bin/chsh -s /bin/bash aine\n" $(printf $SUBGRP_DIGIT $[n]);done
+#コンテナゲストのvimコマンドのインストール
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27cd /usr/local/src/vim && make -j12 install\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
 
-#コンテナゲストの一般ユーザーのパスワードの設定
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27echo \x22aine:aine_pwd\x22|chpasswd\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
+#コンテナゲストへviコマンドのインストール
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s \$(/usr/bin/which ln) -fsr /usr/local/bin/vim /usr/bin/vi\n" $(printf $SUBGRP_DIGIT $[n]);done
 
-#コンテナゲストの一般ユーザーのsudo設定
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27echo \x22aine ALL=(ALL) NOPASSWD:ALL\x22 >> /etc/sudoers \x27\n" $(printf $SUBGRP_DIGIT $[n]);done
+#コンテナゲストのvimコマンドのインストール確認
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /usr/bin/which vim\n" $(printf $SUBGRP_DIGIT $[n]);done
 
-#コンテナゲストプロセスの停止
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo "cd $DEPLOY_DIR && machinectl terminate $REPLICA_NAME-@"
+#コンテナゲストのviコマンドのインストール確認
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /usr/bin/which vi\n" $(printf $SUBGRP_DIGIT $[n]);done
 
-#コンテナゲストプロセスの状態確認
-echo 'machinectl list -all'
+#コンテナゲストのrootユーザーのユーザー個別vim環境設定
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27cd /usr/local/src/script-repo && bash $TEMPLATE_OS-install-vim-user.sh\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
 
-#デフォルトパーミッション設定コマンドの作成
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | \
-	while read n;do
-    printf "ag $DEPLOY_DIR/$SEED_NAME change-default-permission.sh -l | xargs perl -pe \x22s;$DEPLOY_DIR/$SEED_NAME;$DEPLOY_DIR/$REPLICA_NAME-%s;g\x22 > change-default-permission-$REPLICA_NAME-%s.sh\n" $(printf $SUBGRP_DIGIT $[n]) $(printf $SUBGRP_DIGIT $[n]);
-	done
+#コンテナゲストのrootユーザーのユーザー個別vim_plug環境設定
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27cd /usr/local/src/script-repo && bash $TEMPLATE_OS-install-vim_plug.sh\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
 
-#デフォルトパーミッション設定コマンドの実行権限の付与
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | \
-	while read n;do
-    printf "cd $DEPLOY_DIR && chmod 755 change-default-permission-$REPLICA_NAME-%s.sh\n" $(printf $SUBGRP_DIGIT $[n]) ;
-	done
+#コンテナゲストのrootユーザーのユーザー個別dotfile環境設定
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27cd /usr/local/src/script-repo && bash ubuntu-00-00-config-dotfile-system.sh\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
 
-#デフォルトパーミッション設定コマンドの実行コマンドの作成
-eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I@ echo "cd $DEPLOY_DIR && time bash change-default-permission-$REPLICA_NAME-@.sh 1>change-default-permission-$REPLICA_NAME-@-stdout.log 2>change-default-permission-$REPLICA_NAME-@-stderr.log "
+#コンテナゲストのロケール設定
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27cd /usr/local/src/script-repo && bash $TEMPLATE_OS-config-locale.sh\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
+
+#コンテナゲストのrootユーザーのユーザー個別環境変数設定
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27cd /usr/local/src/script-repo && bash ubuntu-00-00-config-env-system.sh\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
+
+#コンテナゲストのrootユーザーのユーザー個別フォント設定
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27cd /usr/local/src/script-repo && bash $TEMPLATE_OS-config-font-RictyDiminished.sh\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
+
+
+#コンテナゲストの一般ユーザーのユーザー個別vim環境設定
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell aine@$REPLICA_NAME-%s /bin/bash -c \x27cd /usr/local/src/script-repo && bash $TEMPLATE_OS-install-vim-user.sh\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
+
+#コンテナゲストの一般ユーザーのユーザー個別vim_plug環境設定
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell aine@$REPLICA_NAME-%s /bin/bash -c \x27cd /usr/local/src/script-repo && bash $TEMPLATE_OS-install-vim_plug.sh\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
+
+#コンテナゲストの一般ユーザーのユーザー個別dotfile環境設定
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell aine@$REPLICA_NAME-%s /bin/bash -c \x27cd /usr/local/src/script-repo && bash ubuntu-00-00-config-dotfile-system.sh\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
+
+#コンテナゲストの一般ユーザーのユーザー個別環境変数設定
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell aine@$REPLICA_NAME-%s /bin/bash -c \x27cd /usr/local/src/script-repo && bash ubuntu-00-00-config-env-system.sh\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
+
+#コンテナゲストの一般ユーザーのユーザー個別フォント設定
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell aine@$REPLICA_NAME-%s /bin/bash -c \x27cd /usr/local/src/script-repo && bash $TEMPLATE_OS-config-font-RictyDiminished.sh\x27\n" $(printf $SUBGRP_DIGIT $[n]);done

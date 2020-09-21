@@ -1,154 +1,240 @@
-systemctl status --no-pager systemd-nspawn@vir-ubuntu-18-04-001.service
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /usr/bin/sed -i.bak 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
 wait $!
-systemctl status --no-pager systemd-nspawn@vir-ubuntu-18-04-002.service
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /usr/bin/sed -i.bak 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
 wait $!
-systemctl status --no-pager systemd-nspawn@vir-ubuntu-18-04-003.service
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /usr/bin/sed -i.bak 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
 wait $!
-systemctl status --no-pager systemd-nspawn@vir-ubuntu-18-04-004.service
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /usr/bin/sed -i.bak 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
 wait $!
-systemctl status --no-pager systemd-nspawn@vir-ubuntu-18-04-005.service
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /usr/bin/sed -i.bak 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
 wait $!
-systemctl stop systemd-nspawn@vir-ubuntu-18-04-001.service
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /usr/bin/apt update
 wait $!
-systemctl stop systemd-nspawn@vir-ubuntu-18-04-002.service
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /usr/bin/apt update
 wait $!
-systemctl stop systemd-nspawn@vir-ubuntu-18-04-003.service
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /usr/bin/apt update
 wait $!
-systemctl stop systemd-nspawn@vir-ubuntu-18-04-004.service
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /usr/bin/apt update
 wait $!
-systemctl stop systemd-nspawn@vir-ubuntu-18-04-005.service
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /usr/bin/apt update
 wait $!
-systemctl status --no-pager systemd-nspawn@vir-ubuntu-18-04-001.service
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /usr/bin/apt install -y git curl unzip
 wait $!
-systemctl status --no-pager systemd-nspawn@vir-ubuntu-18-04-002.service
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /usr/bin/apt install -y git curl unzip
 wait $!
-systemctl status --no-pager systemd-nspawn@vir-ubuntu-18-04-003.service
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /usr/bin/apt install -y git curl unzip
 wait $!
-systemctl status --no-pager systemd-nspawn@vir-ubuntu-18-04-004.service
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /usr/bin/apt install -y git curl unzip
 wait $!
-systemctl status --no-pager systemd-nspawn@vir-ubuntu-18-04-005.service
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /usr/bin/apt install -y git curl unzip
 wait $!
-cd /var/lib/machines && machinectl terminate vir-ubuntu-18-04-001
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /bin/bash -c 'cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git'
 wait $!
-cd /var/lib/machines && machinectl terminate vir-ubuntu-18-04-002
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git'
 wait $!
-cd /var/lib/machines && machinectl terminate vir-ubuntu-18-04-003
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /bin/bash -c 'cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git'
 wait $!
-cd /var/lib/machines && machinectl terminate vir-ubuntu-18-04-004
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /bin/bash -c 'cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git'
 wait $!
-cd /var/lib/machines && machinectl terminate vir-ubuntu-18-04-005
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /bin/bash -c 'cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git'
 wait $!
-echo /var/lib/machines/.#vir-ubuntu-18-04-001 | xargs rm -rf
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-dev-pkg.sh'
 wait $!
-echo /var/lib/machines/.#vir-ubuntu-18-04-002 | xargs rm -rf
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-dev-pkg.sh'
 wait $!
-echo /var/lib/machines/.#vir-ubuntu-18-04-003 | xargs rm -rf
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-dev-pkg.sh'
 wait $!
-echo /var/lib/machines/.#vir-ubuntu-18-04-004 | xargs rm -rf
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-dev-pkg.sh'
 wait $!
-echo /var/lib/machines/.#vir-ubuntu-18-04-005 | xargs rm -rf
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-dev-pkg.sh'
 wait $!
-cd /var/lib/machines && machinectl start vir-ubuntu-18-04-001
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /usr/bin/apt install -y autoconf automake gcc git make
 wait $!
-cd /var/lib/machines && machinectl start vir-ubuntu-18-04-002
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /usr/bin/apt install -y autoconf automake gcc git make
 wait $!
-cd /var/lib/machines && machinectl start vir-ubuntu-18-04-003
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /usr/bin/apt install -y autoconf automake gcc git make
 wait $!
-cd /var/lib/machines && machinectl start vir-ubuntu-18-04-004
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /usr/bin/apt install -y autoconf automake gcc git make
 wait $!
-cd /var/lib/machines && machinectl start vir-ubuntu-18-04-005
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /usr/bin/apt install -y autoconf automake gcc git make
 wait $!
-machinectl list -all
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /bin/bash -c 'cd /usr/local/src && rm -rf vim && git clone https://github.com/vim/vim.git'
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /usr/sbin/groupadd -g 1000 aine
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'cd /usr/local/src && rm -rf vim && git clone https://github.com/vim/vim.git'
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /usr/sbin/groupadd -g 1000 aine
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /bin/bash -c 'cd /usr/local/src && rm -rf vim && git clone https://github.com/vim/vim.git'
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /usr/sbin/groupadd -g 1000 aine
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /bin/bash -c 'cd /usr/local/src && rm -rf vim && git clone https://github.com/vim/vim.git'
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /usr/sbin/groupadd -g 1000 aine
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /bin/bash -c 'cd /usr/local/src && rm -rf vim && git clone https://github.com/vim/vim.git'
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /usr/sbin/groupadd -g 1000 aine
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /bin/bash -c 'cd /usr/local/src/vim && ./configure --with-features=huge --enable-multibyte --enable-gpm --enable-cscope --enable-fontset --enable-fail-if-missing --prefix=/usr/local'
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /usr/sbin/useradd -m -g aine -u 1000 aine
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'cd /usr/local/src/vim && ./configure --with-features=huge --enable-multibyte --enable-gpm --enable-cscope --enable-fontset --enable-fail-if-missing --prefix=/usr/local'
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /usr/sbin/useradd -m -g aine -u 1000 aine
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /bin/bash -c 'cd /usr/local/src/vim && ./configure --with-features=huge --enable-multibyte --enable-gpm --enable-cscope --enable-fontset --enable-fail-if-missing --prefix=/usr/local'
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /usr/sbin/useradd -m -g aine -u 1000 aine
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /bin/bash -c 'cd /usr/local/src/vim && ./configure --with-features=huge --enable-multibyte --enable-gpm --enable-cscope --enable-fontset --enable-fail-if-missing --prefix=/usr/local'
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /usr/sbin/useradd -m -g aine -u 1000 aine
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /bin/bash -c 'cd /usr/local/src/vim && ./configure --with-features=huge --enable-multibyte --enable-gpm --enable-cscope --enable-fontset --enable-fail-if-missing --prefix=/usr/local'
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /usr/sbin/useradd -m -g aine -u 1000 aine
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /bin/bash -c 'cd /usr/local/src/vim && make -j12'
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /usr/bin/chsh -s /bin/bash aine
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'cd /usr/local/src/vim && make -j12'
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /usr/bin/chsh -s /bin/bash aine
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /bin/bash -c 'cd /usr/local/src/vim && make -j12'
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /usr/bin/chsh -s /bin/bash aine
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /bin/bash -c 'cd /usr/local/src/vim && make -j12'
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /usr/bin/chsh -s /bin/bash aine
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /bin/bash -c 'cd /usr/local/src/vim && make -j12'
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /usr/bin/chsh -s /bin/bash aine
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /bin/bash -c 'cd /usr/local/src/vim && make -j12 install'
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /bin/bash -c 'echo "aine:aine_pwd"|chpasswd'
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'cd /usr/local/src/vim && make -j12 install'
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'echo "aine:aine_pwd"|chpasswd'
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /bin/bash -c 'cd /usr/local/src/vim && make -j12 install'
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /bin/bash -c 'echo "aine:aine_pwd"|chpasswd'
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /bin/bash -c 'cd /usr/local/src/vim && make -j12 install'
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /bin/bash -c 'echo "aine:aine_pwd"|chpasswd'
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /bin/bash -c 'cd /usr/local/src/vim && make -j12 install'
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /bin/bash -c 'echo "aine:aine_pwd"|chpasswd'
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 $(/usr/bin/which ln) -fsr /usr/local/bin/vim /usr/bin/vi
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /bin/bash -c 'echo "aine ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers '
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 $(/usr/bin/which ln) -fsr /usr/local/bin/vim /usr/bin/vi
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'echo "aine ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers '
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 $(/usr/bin/which ln) -fsr /usr/local/bin/vim /usr/bin/vi
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /bin/bash -c 'echo "aine ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers '
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 $(/usr/bin/which ln) -fsr /usr/local/bin/vim /usr/bin/vi
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /bin/bash -c 'echo "aine ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers '
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 $(/usr/bin/which ln) -fsr /usr/local/bin/vim /usr/bin/vi
 wait $!
-cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /bin/bash -c 'echo "aine ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers '
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /usr/bin/which vim
 wait $!
-cd /var/lib/machines && machinectl terminate vir-ubuntu-18-04-001
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /usr/bin/which vim
 wait $!
-cd /var/lib/machines && machinectl terminate vir-ubuntu-18-04-002
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /usr/bin/which vim
 wait $!
-cd /var/lib/machines && machinectl terminate vir-ubuntu-18-04-003
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /usr/bin/which vim
 wait $!
-cd /var/lib/machines && machinectl terminate vir-ubuntu-18-04-004
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /usr/bin/which vim
 wait $!
-cd /var/lib/machines && machinectl terminate vir-ubuntu-18-04-005
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /usr/bin/which vi
 wait $!
-machinectl list -all
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /usr/bin/which vi
 wait $!
-ag /var/lib/machines/vir-ubuntu-18-04-template change-default-permission.sh -l | xargs perl -pe "s;/var/lib/machines/vir-ubuntu-18-04-template;/var/lib/machines/vir-ubuntu-18-04-001;g" > change-default-permission-vir-ubuntu-18-04-001.sh
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /usr/bin/which vi
 wait $!
-ag /var/lib/machines/vir-ubuntu-18-04-template change-default-permission.sh -l | xargs perl -pe "s;/var/lib/machines/vir-ubuntu-18-04-template;/var/lib/machines/vir-ubuntu-18-04-002;g" > change-default-permission-vir-ubuntu-18-04-002.sh
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /usr/bin/which vi
 wait $!
-ag /var/lib/machines/vir-ubuntu-18-04-template change-default-permission.sh -l | xargs perl -pe "s;/var/lib/machines/vir-ubuntu-18-04-template;/var/lib/machines/vir-ubuntu-18-04-003;g" > change-default-permission-vir-ubuntu-18-04-003.sh
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /usr/bin/which vi
 wait $!
-ag /var/lib/machines/vir-ubuntu-18-04-template change-default-permission.sh -l | xargs perl -pe "s;/var/lib/machines/vir-ubuntu-18-04-template;/var/lib/machines/vir-ubuntu-18-04-004;g" > change-default-permission-vir-ubuntu-18-04-004.sh
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-vim-user.sh'
 wait $!
-ag /var/lib/machines/vir-ubuntu-18-04-template change-default-permission.sh -l | xargs perl -pe "s;/var/lib/machines/vir-ubuntu-18-04-template;/var/lib/machines/vir-ubuntu-18-04-005;g" > change-default-permission-vir-ubuntu-18-04-005.sh
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-vim-user.sh'
 wait $!
-cd /var/lib/machines && chmod 755 change-default-permission-vir-ubuntu-18-04-001.sh
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-vim-user.sh'
 wait $!
-cd /var/lib/machines && chmod 755 change-default-permission-vir-ubuntu-18-04-002.sh
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-vim-user.sh'
 wait $!
-cd /var/lib/machines && chmod 755 change-default-permission-vir-ubuntu-18-04-003.sh
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-vim-user.sh'
 wait $!
-cd /var/lib/machines && chmod 755 change-default-permission-vir-ubuntu-18-04-004.sh
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-vim_plug.sh'
 wait $!
-cd /var/lib/machines && chmod 755 change-default-permission-vir-ubuntu-18-04-005.sh
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-vim_plug.sh'
 wait $!
-cd /var/lib/machines && time bash change-default-permission-vir-ubuntu-18-04-001.sh 1>change-default-permission-vir-ubuntu-18-04-001-stdout.log 2>change-default-permission-vir-ubuntu-18-04-001-stderr.log
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-vim_plug.sh'
 wait $!
-cd /var/lib/machines && time bash change-default-permission-vir-ubuntu-18-04-002.sh 1>change-default-permission-vir-ubuntu-18-04-002-stdout.log 2>change-default-permission-vir-ubuntu-18-04-002-stderr.log
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-vim_plug.sh'
 wait $!
-cd /var/lib/machines && time bash change-default-permission-vir-ubuntu-18-04-003.sh 1>change-default-permission-vir-ubuntu-18-04-003-stdout.log 2>change-default-permission-vir-ubuntu-18-04-003-stderr.log
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-vim_plug.sh'
 wait $!
-cd /var/lib/machines && time bash change-default-permission-vir-ubuntu-18-04-004.sh 1>change-default-permission-vir-ubuntu-18-04-004-stdout.log 2>change-default-permission-vir-ubuntu-18-04-004-stderr.log
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-00-00-config-dotfile-system.sh'
 wait $!
-cd /var/lib/machines && time bash change-default-permission-vir-ubuntu-18-04-005.sh 1>change-default-permission-vir-ubuntu-18-04-005-stdout.log 2>change-default-permission-vir-ubuntu-18-04-005-stderr.log
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-00-00-config-dotfile-system.sh'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-00-00-config-dotfile-system.sh'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-00-00-config-dotfile-system.sh'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-00-00-config-dotfile-system.sh'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-config-locale.sh'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-config-locale.sh'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-config-locale.sh'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-config-locale.sh'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-config-locale.sh'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-00-00-config-env-system.sh'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-00-00-config-env-system.sh'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-00-00-config-env-system.sh'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-00-00-config-env-system.sh'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-00-00-config-env-system.sh'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-001 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-config-font-RictyDiminished.sh'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-config-font-RictyDiminished.sh'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-003 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-config-font-RictyDiminished.sh'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-004 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-config-font-RictyDiminished.sh'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-005 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-config-font-RictyDiminished.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-001 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-vim-user.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-002 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-vim-user.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-003 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-vim-user.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-004 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-vim-user.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-005 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-vim-user.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-001 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-vim_plug.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-002 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-vim_plug.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-003 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-vim_plug.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-004 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-vim_plug.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-005 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-vim_plug.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-001 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-00-00-config-dotfile-system.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-002 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-00-00-config-dotfile-system.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-003 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-00-00-config-dotfile-system.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-004 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-00-00-config-dotfile-system.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-005 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-00-00-config-dotfile-system.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-001 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-00-00-config-env-system.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-002 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-00-00-config-env-system.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-003 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-00-00-config-env-system.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-004 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-00-00-config-env-system.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-005 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-00-00-config-env-system.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-001 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-config-font-RictyDiminished.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-002 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-config-font-RictyDiminished.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-003 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-config-font-RictyDiminished.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-004 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-config-font-RictyDiminished.sh'
+wait $!
+cd /var/lib/machines && machinectl shell aine@vir-ubuntu-18-04-005 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-config-font-RictyDiminished.sh'
 wait $!
