@@ -115,6 +115,21 @@ eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "c
 #コンテナゲストのrootユーザーのパスワード設定
 eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27echo \x22root:root_pwd\x22|chpasswd\x27;\n" $(printf $SUBGRP_DIGIT $[n]);done
 
+#コンテナゲストの一般ユーザーグループの作成
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /usr/sbin/groupadd -g 1000 aine\n" $(printf $SUBGRP_DIGIT $[n]);done
+
+#コンテナゲストの一般ユーザーの作成
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /usr/sbin/useradd -m -g aine -u 1000 aine\n" $(printf $SUBGRP_DIGIT $[n]);done
+
+#コンテナゲストの一般ユーザーのログインシェルの変更
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /usr/bin/chsh -s /bin/bash aine\n" $(printf $SUBGRP_DIGIT $[n]);done
+
+#コンテナゲストの一般ユーザーのパスワードの設定
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27echo \x22aine:aine_pwd\x22|chpasswd\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
+
+#コンテナゲストの一般ユーザーのsudo設定
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27echo \x22aine ALL=(ALL) NOPASSWD:ALL\x22 >> /etc/sudoers \x27\n" $(printf $SUBGRP_DIGIT $[n]);done
+
 #おまじない
 eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | xargs -I{} echo "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-{} /usr/bin/ln -sf /dev/null $SYSTEM_NETWORK_DIR/$CONTAINER_HOST0_NETWORK_NAME"
 
