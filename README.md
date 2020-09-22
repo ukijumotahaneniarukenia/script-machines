@@ -43,17 +43,16 @@ real	14m0.725s
 user	0m1.116s
 sys	0m1.503s
 
-#一括boot
+#一括boot（まれ）
 $ bash create-boot-setup-cmd.sh 1 5 ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';done  >execute-boot-setup-cmd.sh
 
 $ chmod 755 execute-boot-setup-cmd.sh
 
 $ time sudo bash execute-boot-setup-cmd.sh
 
-#個別boot
-$ cat execute-boot-setup-cmd.sh | grep vir-ubuntu-18-04-001 | while read cmd;do echo $cmd;echo 'wait $!';done  >execute-boot-setup-cmd-vir-ubuntu-18-04-001.sh
+#個別boot（よく）
 
-$ chmod 755 execute-boot-setup-cmd-vir-ubuntu-18-04-001.sh
+$ echo {001..005} | xargs -n1 | while read nnn;do cat execute-boot-setup-cmd.sh | grep vir-ubuntu-18-04-$nnn| while read cmd;do echo $cmd;echo 'wait $!';done >execute-boot-setup-cmd-vir-ubuntu-18-04-$nnn.sh;chmod 755 execute-boot-setup-cmd-vir-ubuntu-18-04-$nnn.sh;done
 
 #権限デフォ値一括設定の経過時間でほとんど
 $ time sudo bash execute-boot-setup-cmd-vir-ubuntu-18-04-001.sh
