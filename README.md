@@ -139,13 +139,13 @@ $ echo {001..005} | xargs -n1 | while read nnn;do cat execute-boot-setup-cmd.sh 
 ```
 $ time sudo bash execute-boot-setup-cmd-vir-ubuntu-18-04-001.sh
 
-real	1m4.807s
-user	0m40.652s
-sys	0m28.170s
+real	1m1.175s
+user	0m38.301s
+sys	0m26.410s
 
-real	1m8.980s
-user	0m40.742s
-sys	0m28.234s
+real	1m33.913s
+user	0m38.408s
+sys	0m26.516s
 ```
 
 一括整備コマンドの作成
