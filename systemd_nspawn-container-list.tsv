@@ -1,0 +1,6 @@
+addresses	class	machine	os	service	version
+"192.168.1.210\nfe80::ec3e:dff:febc:4d55"	"container"	"vir-ubuntu-18-04-001"	"ubuntu"	"systemd-nspawn"	"18.04"
+"192.168.1.211\nfe80::18d7:6aff:fef7:799c"	"container"	"vir-ubuntu-18-04-002"	"ubuntu"	"systemd-nspawn"	"18.04"
+"192.168.1.212\nfe80::12:92ff:fe02:380e"	"container"	"vir-ubuntu-18-04-003"	"ubuntu"	"systemd-nspawn"	"18.04"
+"192.168.1.213\nfe80::c878:ecff:fe6b:f8cb"	"container"	"vir-ubuntu-18-04-004"	"ubuntu"	"systemd-nspawn"	"18.04"
+"192.168.1.214\nfe80::f0ad:efff:fec2:ddce"	"container"	"vir-ubuntu-18-04-005"	"ubuntu"	"systemd-nspawn"	"18.04"
