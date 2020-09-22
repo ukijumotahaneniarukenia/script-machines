@@ -21,17 +21,6 @@ sys	0m3.393s
 
 $ reboot
 
-$ bash create-info-setup-cmd.sh 1 5 ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';done  >execute-info-setup-cmd.sh
-
-$ chmod 755 execute-info-setup-cmd.sh
-
-$ time sudo bash execute-info-setup-cmd.sh
-
-
-real	0m3.952s
-user	0m0.018s
-sys	0m0.011s
-
 $ bash create-post-setup-cmd.sh 1 5 ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';done  >execute-post-setup-cmd.sh
 
 $ chmod 755 execute-post-setup-cmd.sh
@@ -85,6 +74,8 @@ $ chown -R aine:aine /home/aine
 $ chmod 4755 /usr/bin/sudo
 
 $ sudo echo unko
+
+$ source $HOME/.bashrc
 
 $ sudo apt install -y firefox
 ```
@@ -236,4 +227,35 @@ $ cat systemd_nspawn-container-list.json
 
 ```
 $ sudo ln -fsr /usr/local/bin/vim /usr/bin/vi
+```
+
+
+レポジトリ寂しいので、以下をいい感じに追加
+
+```
+$ cat <<EOS >/etc/apt/sources.list
+deb http://ftp.jaist.ac.jp/pub/Linux/ubuntu bionic main
+
+deb http://jp.archive.ubuntu.com/ubuntu/ bionic main restricted
+
+deb http://jp.archive.ubuntu.com/ubuntu/ bionic-updates main restricted
+
+deb http://jp.archive.ubuntu.com/ubuntu/ bionic universe
+
+deb http://jp.archive.ubuntu.com/ubuntu/ bionic-updates universe
+
+deb http://jp.archive.ubuntu.com/ubuntu/ bionic multiverse
+
+deb http://jp.archive.ubuntu.com/ubuntu/ bionic-updates multiverse
+
+deb http://jp.archive.ubuntu.com/ubuntu/ bionic-backports main restricted universe multiverse
+
+deb http://security.ubuntu.com/ubuntu bionic-security main restricted
+
+deb http://security.ubuntu.com/ubuntu bionic-security universe
+
+deb http://security.ubuntu.com/ubuntu bionic-security multiverse
+EOS
+
+$ sudo apt update
 ```
