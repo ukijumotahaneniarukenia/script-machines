@@ -179,7 +179,7 @@ $ machinectl terminate vir-ubuntu-18-04-001
 
 $ machinectl list --all
 
-$ systemd-nspawn --bind=/home/aine/Downloads-for-systed_nspawn-container/ubuntu-18-04-001:/home/aine/media -b -D /var/lib/machines/vir-ubuntu-18-04-001
+$ systemd-nspawn --bind=/home/aine/Downloads-for-systemd_nspawn-container/ubuntu-18-04-001:/home/aine/media -b -D /var/lib/machines/vir-ubuntu-18-04-001
 ```
 
 コンテナログイン後、権限整備
