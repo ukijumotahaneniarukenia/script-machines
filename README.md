@@ -13,7 +13,7 @@ $ echo {001..005} | xargs -n1 | xargs -I{} mkdir -p /home/aine/Downloads-for-sys
 ```
 $ su root
 
-$ systemctl status systemd-nspawn@vir-ubuntu-18-04-001
+$ systemctl status --no-pager systemd-nspawn@vir-ubuntu-18-04-001
 
 $ systemctl stop systemd-nspawn@vir-ubuntu-18-04-001
 
@@ -25,11 +25,13 @@ $ rm -rf /var/lib/machines/vir-ubuntu-18-04-001
 ```
 $ su root
 
-$ systemctl status systemd-nspawn@vir-ubuntu-18-04-*
+$ cd /var/lib/machines
+
+$ systemctl status --no-pager systemd-nspawn@vir-ubuntu-18-04-*
 
 $ systemctl stop systemd-nspawn@vir-ubuntu-18-04-*
 
-$ rm -rf /var/lib/machines/vir-ubuntu-18-04-*
+$ ls /var/lib/machines/vir-ubuntu-18-04-* | grep -v template | xargs rm -rf
 ```
 
 コンテナ作成
