@@ -1,5 +1,18 @@
 # script-machines
 
+単一コンテナの削除
+
+```
+$ su root
+
+$ systemctl status systemd-nspawn@vir-ubuntu-18-04-001
+
+$ systemctl stop systemd-nspawn@vir-ubuntu-18-04-001
+
+$ rm -rf /var/lib/machines/vir-ubuntu-18-04-001
+
+```
+
 コンテナホストとコンテナゲストで共有ディレクトリの作成
 
 ```
