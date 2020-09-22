@@ -74,6 +74,42 @@ eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "c
 #コンテナゲストへマストコマンドのインストール
 eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /usr/bin/apt install -y git curl unzip\n" $(printf $SUBGRP_DIGIT $[n]);done
 
+#コンテナゲストのリポジトリエントリの追加
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27echo \x22deb http://ftp.jaist.ac.jp/pub/Linux/ubuntu bionic main\x22 | tee -a /etc/apt/sources.list\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
+
+#コンテナゲストのリポジトリエントリの追加
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27echo \x22deb http://jp.archive.ubuntu.com/ubuntu/ bionic main restricted\x22 | tee -a /etc/apt/sources.list\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
+
+#コンテナゲストのリポジトリエントリの追加
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27echo \x22deb http://jp.archive.ubuntu.com/ubuntu/ bionic-updates main restricted\x22 | tee -a /etc/apt/sources.list\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
+
+#コンテナゲストのリポジトリエントリの追加
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27echo \x22deb http://jp.archive.ubuntu.com/ubuntu/ bionic universe\x22 | tee -a /etc/apt/sources.list\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
+
+#コンテナゲストのリポジトリエントリの追加
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27echo \x22deb http://jp.archive.ubuntu.com/ubuntu/ bionic-updates universe\x22 | tee -a /etc/apt/sources.list\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
+
+#コンテナゲストのリポジトリエントリの追加
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27echo \x22deb http://jp.archive.ubuntu.com/ubuntu/ bionic multiverse\x22 | tee -a /etc/apt/sources.list\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
+
+#コンテナゲストのリポジトリエントリの追加
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27echo \x22deb http://jp.archive.ubuntu.com/ubuntu/ bionic-updates multiverse\x22 | tee -a /etc/apt/sources.list\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
+
+#コンテナゲストのリポジトリエントリの追加
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27echo \x22deb http://jp.archive.ubuntu.com/ubuntu/ bionic-backports main restricted universe multiverse\x22 | tee -a /etc/apt/sources.list\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
+
+#コンテナゲストのリポジトリエントリの追加
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27echo \x22deb http://security.ubuntu.com/ubuntu bionic-security main restricted\x22 | tee -a /etc/apt/sources.list\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
+
+#コンテナゲストのリポジトリエントリの追加
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27echo \x22deb http://security.ubuntu.com/ubuntu bionic-security universe\x22 | tee -a /etc/apt/sources.list\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
+
+#コンテナゲストのリポジトリエントリの追加
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27echo \x22deb http://security.ubuntu.com/ubuntu bionic-security multiverse\x22 | tee -a /etc/apt/sources.list\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
+
+#コンテナゲストのリポジトリの更新
+eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /usr/bin/apt update\n" $(printf $SUBGRP_DIGIT $[n]);done
+
 #コンテナゲストへスクリプトレポのダウンロード
 eval echo {$START_HOST_NO..$END_HOST_NO} | xargs -n1 | while read n;do printf "cd $DEPLOY_DIR && machinectl shell root@$REPLICA_NAME-%s /bin/bash -c \x27cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git\x27\n" $(printf $SUBGRP_DIGIT $[n]);done
 

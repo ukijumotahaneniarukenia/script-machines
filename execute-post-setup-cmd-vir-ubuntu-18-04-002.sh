@@ -4,6 +4,30 @@ cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /usr/bin/apt 
 wait $!
 cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /usr/bin/apt install -y git curl unzip
 wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'echo "deb http://ftp.jaist.ac.jp/pub/Linux/ubuntu bionic main" | tee -a /etc/apt/sources.list'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'echo "deb http://jp.archive.ubuntu.com/ubuntu/ bionic main restricted" | tee -a /etc/apt/sources.list'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'echo "deb http://jp.archive.ubuntu.com/ubuntu/ bionic-updates main restricted" | tee -a /etc/apt/sources.list'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'echo "deb http://jp.archive.ubuntu.com/ubuntu/ bionic universe" | tee -a /etc/apt/sources.list'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'echo "deb http://jp.archive.ubuntu.com/ubuntu/ bionic-updates universe" | tee -a /etc/apt/sources.list'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'echo "deb http://jp.archive.ubuntu.com/ubuntu/ bionic multiverse" | tee -a /etc/apt/sources.list'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'echo "deb http://jp.archive.ubuntu.com/ubuntu/ bionic-updates multiverse" | tee -a /etc/apt/sources.list'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'echo "deb http://jp.archive.ubuntu.com/ubuntu/ bionic-backports main restricted universe multiverse" | tee -a /etc/apt/sources.list'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'echo "deb http://security.ubuntu.com/ubuntu bionic-security main restricted" | tee -a /etc/apt/sources.list'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'echo "deb http://security.ubuntu.com/ubuntu bionic-security universe" | tee -a /etc/apt/sources.list'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'echo "deb http://security.ubuntu.com/ubuntu bionic-security multiverse" | tee -a /etc/apt/sources.list'
+wait $!
+cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /usr/bin/apt update
+wait $!
 cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git'
 wait $!
 cd /var/lib/machines && machinectl shell root@vir-ubuntu-18-04-002 /bin/bash -c 'cd /usr/local/src/script-repo && bash ubuntu-18-04-install-dev-pkg.sh'
