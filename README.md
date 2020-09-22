@@ -3,7 +3,7 @@
 コンテナホストとコンテナゲストで共有ディレクトリの作成
 
 ```
-$ echo {001..005} | xargs -n1 | xargs -I{} mkdir -p /home/aine/Downloads-for-systed_nspawn-container/ubuntu-18-04-{}
+$ echo {001..005} | xargs -n1 | xargs -I{} mkdir -p /home/aine/Downloads-for-systemd_nspawn-container/ubuntu-18-04-{}
 ```
 
 コンテナ削除
