@@ -103,9 +103,9 @@ $ echo {001..005} | xargs -n1 | while read nnn;do bash create-post-setup-cmd.sh 
 ```
 $ time sudo bash execute-post-setup-cmd-vir-ubuntu-18-04-001.sh
 
-real	3m43.722s
-user	0m0.207s
-sys	0m0.342s
+real	6m9.254s
+user	0m0.390s
+sys	0m0.442s
 ```
 
 一括整備コマンドの作成
