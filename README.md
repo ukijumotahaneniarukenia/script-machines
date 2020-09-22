@@ -47,7 +47,7 @@ $ git clone https://github.com/ukijumotahaneniarukenia/script-machines.git
 
 $ cd $HOME/script-machines
 
-$ echo {001..005} | xargs -n1 | while read nnn;do bash create-main-setup-cmd.sh $nnn $nnn ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';done >execute-main-setup-cmd-vir-ubuntu-18-04-$nnn.sh;chmod 755 execute-main-setup-cmd-vir-ubuntu-18-04-$nnn.sh;done
+$ echo {001..005} | xargs -n1 | while read nnn;do bash create-main-setup-cmd.sh $nnn $nnn ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';echo 'sleep 3';done >execute-main-setup-cmd-vir-ubuntu-18-04-$nnn.sh;chmod 755 execute-main-setup-cmd-vir-ubuntu-18-04-$nnn.sh;done
 ```
 
 単一実行
@@ -55,9 +55,9 @@ $ echo {001..005} | xargs -n1 | while read nnn;do bash create-main-setup-cmd.sh 
 ```
 $ time sudo bash execute-main-setup-cmd-vir-ubuntu-18-04-001.sh
 
-real	0m1.259s
-user	0m0.121s
-sys	0m0.393s
+real	1m38.055s
+user	0m0.217s
+sys	0m0.448s
 ```
 
 一括作成コマンドの作成
@@ -69,7 +69,7 @@ $ git clone https://github.com/ukijumotahaneniarukenia/script-machines.git
 
 $ cd $HOME/script-machines
 
-$ bash create-main-setup-cmd.sh 1 5 ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';done  >execute-main-setup-cmd.sh
+$ bash create-main-setup-cmd.sh 1 5 ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';echo 'sleep 3';done  >execute-main-setup-cmd.sh
 
 $ chmod 755 execute-main-setup-cmd.sh
 ```
@@ -95,7 +95,7 @@ $ reboot
 単一整備コマンドの作成
 
 ```
-$ echo {001..005} | xargs -n1 | while read nnn;do bash create-post-setup-cmd.sh $nnn $nnn ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';done >execute-post-setup-cmd-vir-ubuntu-18-04-$nnn.sh;chmod 755 execute-post-setup-cmd-vir-ubuntu-18-04-$nnn.sh;done
+$ echo {001..005} | xargs -n1 | while read nnn;do bash create-post-setup-cmd.sh $nnn $nnn ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';echo 'sleep 3';done >execute-post-setup-cmd-vir-ubuntu-18-04-$nnn.sh;chmod 755 execute-post-setup-cmd-vir-ubuntu-18-04-$nnn.sh;done
 ```
 
 単一実行
@@ -111,7 +111,7 @@ sys	0m0.342s
 一括整備コマンドの作成
 
 ```
-$ bash create-post-setup-cmd.sh 1 5 ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';done  >execute-post-setup-cmd.sh
+$ bash create-post-setup-cmd.sh 1 5 ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';echo 'sleep 3';done  >execute-post-setup-cmd.sh
 
 $ chmod 755 execute-post-setup-cmd.sh
 ```
@@ -131,7 +131,7 @@ sys	0m1.503s
 単一整備コマンドの作成
 
 ```
-$ echo {001..005} | xargs -n1 | while read nnn;do cat execute-boot-setup-cmd.sh | grep vir-ubuntu-18-04-$nnn| while read cmd;do echo $cmd;echo 'wait $!';done >execute-boot-setup-cmd-vir-ubuntu-18-04-$nnn.sh;chmod 755 execute-boot-setup-cmd-vir-ubuntu-18-04-$nnn.sh;done
+$ echo {001..005} | xargs -n1 | while read nnn;do cat execute-boot-setup-cmd.sh | grep vir-ubuntu-18-04-$nnn| while read cmd;do echo $cmd;echo 'wait $!';echo 'sleep 3';done >execute-boot-setup-cmd-vir-ubuntu-18-04-$nnn.sh;chmod 755 execute-boot-setup-cmd-vir-ubuntu-18-04-$nnn.sh;done
 ```
 
 単一実行
@@ -151,7 +151,7 @@ sys	0m28.234s
 一括整備コマンドの作成
 
 ```
-$ bash create-boot-setup-cmd.sh 1 5 ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';done  >execute-boot-setup-cmd.sh
+$ bash create-boot-setup-cmd.sh 1 5 ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';echo 'sleep 3';done  >execute-boot-setup-cmd.sh
 
 $ chmod 755 execute-boot-setup-cmd.sh
 ```
