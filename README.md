@@ -162,6 +162,39 @@ $ chmod 755 execute-boot-setup-cmd.sh
 $ time sudo bash execute-boot-setup-cmd.sh
 ```
 
+コンテナメタ情報の登録
+
+
+単一整備コマンドの作成
+
+```
+$ echo {001..005} | xargs -n1 | while read nnn;do bash create-info-setup-cmd.sh $nnn $nnn ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';echo 'sleep 3';done >execute-info-setup-cmd-vir-ubuntu-18-04-$nnn.sh;chmod 755 execute-info-setup-cmd-vir-ubuntu-18-04-$nnn.sh;done
+```
+
+単一実行
+
+```
+$ time sudo bash execute-info-setup-cmd-vir-ubuntu-18-04-001.sh
+
+real	0m9.021s
+user	0m0.019s
+sys	0m0.002s
+```
+
+一括整備コマンドの作成
+
+```
+$ bash create-info-setup-cmd.sh 1 5 ubuntu-18-04 | while read cmd;do echo $cmd;echo 'wait $!';echo 'sleep 3';done  >execute-info-setup-cmd.sh
+
+$ chmod 755 execute-info-setup-cmd.sh
+```
+
+一括実行
+
+```
+$ time sudo bash execute-info-setup-cmd.sh
+```
+
 ブート起動
 
 ユーザー名：aine
