@@ -62,6 +62,10 @@ user	0m40.742s
 sys	0m28.234s
 
 
+#ブート起動
+
+$ systemd-nspawn --bind=/home/aine/Downloads-for-systed_nspawn-container/ubuntu-18-04-002:/home/aine/media -b -D /var/lib/machines/vir-ubuntu-18-04-002
+
 #ブート起動で権限整備
 
 $ su root
