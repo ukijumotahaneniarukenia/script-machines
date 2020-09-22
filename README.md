@@ -54,6 +54,10 @@ $ echo {001..005} | xargs -n1 | while read nnn;do bash create-main-setup-cmd.sh 
 
 ```
 $ time sudo bash execute-main-setup-cmd-vir-ubuntu-18-04-001.sh
+
+real	0m1.259s
+user	0m0.121s
+sys	0m0.393s
 ```
 
 一括作成コマンドの作成
